@@ -34,6 +34,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <stdlib.h>
 
 #include <fizmo/tools/tracelog.h>
 #include <fizmo/tools/i18n.h>
@@ -73,8 +74,12 @@ static char mg1_file_name[] = "../test/Shogun.mg1";
 #ifdef TEST_X11
 static x11_image_window_id image_window_id;
 static int signalling_pipe[2];
+  fd_set in_fds;
+  int max_filedes_number_plus_1;
+  int select_retval;
+  unsigned int read_buf[1];
+  int ret_val;
 #endif // TEST_X11
-
 
 /*
 static void wait_for_enter()
@@ -126,6 +131,78 @@ int i18n_test_stream_output(z_ucs *output)
 }
 
 
+int setup_callback()
+{
+  int flags;
+
+  if (pipe(signalling_pipe) != 0)
+    return -1;
+
+  if ((flags = fcntl(signalling_pipe[0], F_GETFL, 0)) == -1)
+    return -1;
+
+  if ((fcntl(signalling_pipe[0], F_SETFL, flags|O_NONBLOCK)) == -1)
+    return -1;
+
+  if ((flags = fcntl(STDIN_FILENO, F_GETFL, 0)) == -1)
+    return -1;
+
+  if ((fcntl(STDIN_FILENO, F_SETFL, flags|O_NONBLOCK)) == -1)
+    return -1;
+}
+
+
+int wait_for_callback()
+{
+  for (;;)
+  {
+    FD_ZERO(&in_fds);
+    FD_SET(STDIN_FILENO, &in_fds);
+    FD_SET(signalling_pipe[0], &in_fds);
+
+    max_filedes_number_plus_1
+      = (STDIN_FILENO < signalling_pipe[0]
+          ? signalling_pipe[0]
+          : STDIN_FILENO) + 1;
+
+    select_retval
+      = select(max_filedes_number_plus_1, &in_fds, NULL, NULL, NULL);
+
+    if (select_retval > 0)
+    {
+      if (FD_ISSET(STDIN_FILENO, &in_fds))
+      {
+        do
+        {
+          ret_val = read(STDIN_FILENO, &read_buf, 1);
+        }
+        while (ret_val > 0);
+
+        break;
+      }
+      else if (FD_ISSET(signalling_pipe[0], &in_fds))
+      {
+        do
+        {
+          ret_val = read(signalling_pipe[0], &read_buf, 1);
+
+          if ( (ret_val == -1) && (errno != EAGAIN) )
+          {
+            printf("ret_val:%d\n", ret_val);
+            return -1;
+          }
+        }
+        while ( (ret_val == -1) && (errno == EAGAIN) );
+
+        break;
+      }
+    }
+  }
+
+  return 0;
+}
+
+
 int main(int UNUSED(argc), char *UNUSED(argv[]))
 {
   FILE *in, *out;
@@ -142,12 +219,8 @@ int main(int UNUSED(argc), char *UNUSED(argv[]))
   z_image *brain_ad_png;
 #endif // TEST_JPEG
 #ifdef TEST_X11
-  fd_set in_fds;
-  int max_filedes_number_plus_1;
-  int select_retval;
-  int flags;
-  unsigned int read_buf[1];
-  int ret_val;
+  char *env_window_id;
+  XID window_id;
 #endif // TEST_X11
   z_ucs *search_path;
 
@@ -264,72 +337,35 @@ int main(int UNUSED(argc), char *UNUSED(argv[]))
 
   printf("\nStarting X11-test.\n");
 
-  if (pipe(signalling_pipe) != 0)
-    return -1;
-
-  if ((flags = fcntl(signalling_pipe[0], F_GETFL, 0)) == -1)
-    return -1;
-
-  if ((fcntl(signalling_pipe[0], F_SETFL, flags|O_NONBLOCK)) == -1)
-    return -1;
-
-  if ((flags = fcntl(STDIN_FILENO, F_GETFL, 0)) == -1)
-    return -1;
-
-  if ((fcntl(STDIN_FILENO, F_SETFL, flags|O_NONBLOCK)) == -1)
-    return -1;
-
-  printf("Displaying X11 image ...\n");
+  printf("Displaying X11 image window ...\n");
   printf("Close window or press Enter to continue.\n");
-  image_window_id = display_zimage_on_X11(mg1_image, &callback_func);
+  setup_callback();
+  image_window_id = display_zimage_on_X11(NULL, mg1_image, &callback_func);
+  wait_for_callback();
+  close_image_window(image_window_id);
+
+  printf("Trying to display X11 image inlined in current (terminal) ");
+  printf("window ...\n");
+  env_window_id = getenv("WINDOWID");
+  if (env_window_id != NULL)
+  {
+    //printf("window id: %s\n", env_window_id);
+    window_id = atol(env_window_id);
+    //printf("%ld\n", window_id);
+    setup_callback();
+    image_window_id = display_zimage_on_X11(&window_id, mg1_image,
+        &callback_func);
+    wait_for_callback();
+  }
+  else
+  {
+    printf("getenf(\"WINDOWID\") return null, probably not running X.\n");
+  }
+
+  //XID window_id;
   //image_window_id = display_zimage_on_X11(zork_poster, &callback_func);
   //image_window_id = display_zimage_on_X11(brain_ad_jpg, &callback_func);
   //wait_for_enter();
-
-  for (;;)
-  {
-    FD_ZERO(&in_fds);
-    FD_SET(STDIN_FILENO, &in_fds);
-    FD_SET(signalling_pipe[0], &in_fds);
-
-    max_filedes_number_plus_1
-      = (STDIN_FILENO < signalling_pipe[0]
-          ? signalling_pipe[0]
-          : STDIN_FILENO) + 1;
-
-    select_retval
-      = select(max_filedes_number_plus_1, &in_fds, NULL, NULL, NULL);
-
-    if (select_retval > 0)
-    {
-      if (FD_ISSET(STDIN_FILENO, &in_fds))
-      {
-        do
-        {
-          ret_val = read(STDIN_FILENO, &read_buf, 1);
-        }
-        while (ret_val > 0);
-
-        break;
-      }
-      else if (FD_ISSET(signalling_pipe[0], &in_fds))
-      {
-        do
-        {
-          ret_val = read(signalling_pipe[0], &read_buf, 1);
-
-          if ( (ret_val == -1) && (errno != EAGAIN) )
-          {
-            printf("ret_val:%d\n", ret_val);
-            return -1;
-          }
-        }
-        while ( (ret_val == -1) && (errno == EAGAIN) );
-
-        break;
-      }
-    }
-  }
 
   end_x11_display();
 #endif
