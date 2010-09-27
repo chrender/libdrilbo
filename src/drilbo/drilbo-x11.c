@@ -752,8 +752,8 @@ int end_x11_display()
 }
 
 
-x11_image_window_id display_zimage_on_X11(z_image *zimage,
- void (*callback_func)())
+x11_image_window_id display_zimage_on_X11(Window *parent_window,
+    z_image *zimage, void (*callback_func)())
 {
   Window window;
   Hints hints;
@@ -764,6 +764,9 @@ x11_image_window_id display_zimage_on_X11(z_image *zimage,
   z_image *image_dup;
   x11_image_window_id result;
   x11_image_window *result_window;
+  int x, y, tmp_x, tmp_y;
+  unsigned parent_width, parent_height, tmp_border, tmp_depth;
+  Window tmp_window;
 
   XSetWindowAttributes attributes;
   unsigned long value_mask;
@@ -791,21 +794,47 @@ x11_image_window_id display_zimage_on_X11(z_image *zimage,
   value_mask
     = CWBackPixel
     | CWEventMask;
+  attributes.border_pixel
+    = BlackPixel(x11_display, x11_screennumber);
+  value_mask |= CWBorderPixel;
   */
 
   value_mask = CWEventMask;
 
-  parent = XRootWindow(x11_display, x11_screennumber);
+  parent
+    = parent_window == NULL
+    ? XRootWindow(x11_display, x11_screennumber)
+    : *parent_window;
+
+  //printf("root: %ld\n", XRootWindow(x11_display, x11_screennumber));
+  //printf("Parent window id: %ld\n", parent);
+
+  XGetGeometry(x11_display, parent, &tmp_window, &tmp_x, &tmp_y,
+      &parent_width, &parent_height, &tmp_border, &tmp_depth);
+
+  //printf("%d x %d\n", parent_width, parent_height);
+
+  if (parent_width > image_dup->width)
+    x = (parent_width - image_dup->width) / 2;
+  else
+    x = 20;
+
+  if (parent_height > image_dup->height)
+    y = (parent_height - image_dup->height) / 2;
+  else
+    y = 20;
+
+
   doInline = false;
 
   window = XCreateWindow(
       x11_display,
       parent,
-      10,
-      10,
+      x,
+      y,
       image_dup->width,
       image_dup->height, // + (x11_macos == true ? 16 : 0),
-      1,
+      0,
       x11_defaultdepth,
       InputOutput,
       x11_visual,
