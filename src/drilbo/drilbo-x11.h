@@ -80,8 +80,8 @@ typedef struct
 
 int init_x11_display();
 int end_x11_display();
-x11_image_window_id display_zimage_on_X11(z_image *image,
-    void (*callback_func)());
+x11_image_window_id display_zimage_on_X11(Window *parent_window,
+    z_image *image, void (*callback_func)());
 int close_image_window(x11_image_window_id window_id);
 
 
