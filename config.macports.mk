@@ -5,19 +5,15 @@ CC = gcc
 AR = ar
 CFLAGS = -Wall -Wextra
 
-#ifneq ($(DESTDIR),)
-#INSTALL_PREFIX = $(DESTDIR)
-#else
-#INSTALL_PREFIX = /usr/local
-#endif
+ifneq ($(DESTDIR),)
+INSTALL_PREFIX = $(DESTDIR)
+else
+INSTALL_PREFIX = /usr/local
+endif
 INSTALL_PREFIX = /Users/chrender/opt/fizmo
 
 FIZMO_INC_DIR = $(INSTALL_PREFIX)/include
 FIZMO_LIB_DIR = $(INSTALL_PREFIX)/lib
-
-# If defined, install goes to "$(INSTALL_PREFIX)/($FIZMO_BIN_DIR)" instead of
-# "(INSTALL_PREFIX)/games" (usually use to subsitute "bin" for "games").
-#FIZMO_BIN_DIR = games
 
 DEFAULT_PREFIX = /opt/local
 DEFAULT_LIB_PREFIX = $(DEFAULT_PREFIX)/lib
