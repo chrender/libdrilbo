@@ -14,7 +14,7 @@ install: src/drilbo/libdrilbo.a
 	for l in `cd src/locales ; ls -d ??_??`; \
 	do \
 	  mkdir -p $(INSTALL_PREFIX)/share/fizmo/locales/$$l; \
-	  cp src/locales/$$l/* $(INSTALL_PREFIX)/share/fizmo/locales/$$l; \
+	  cp src/locales/$$l/*.txt $(INSTALL_PREFIX)/share/fizmo/locales/$$l; \
 	done
 
 clean::
