@@ -9,8 +9,8 @@ ifneq ($(DESTDIR),)
 INSTALL_PREFIX = $(DESTDIR)
 else
 INSTALL_PREFIX = /usr/local
+INSTALL_PREFIX = $(HOME)/opt/fizmo
 endif
-INSTALL_PREFIX = /Users/chrender/opt/fizmo
 
 FIZMO_INC_DIR = $(INSTALL_PREFIX)/include
 FIZMO_LIB_DIR = $(INSTALL_PREFIX)/lib
@@ -36,7 +36,7 @@ ENABLE_OPTIMIZATION = 1
 # Debug-Flags:
 
 # Uncomment to fill your harddisk _very_ fast:
-ENABLE_TRACING = 1
+#ENABLE_TRACING = 1
 
 # Add GDB symbols, only useful for debuggong:
 #ENABLE_GDB_SYMBOLS = 1
