@@ -76,6 +76,7 @@ clean::
 	cd src/drilbo ; make clean
 
 distclean:: clean
+	rm -f libdrilbo.mk
 	cd src/drilbo ; make distclean
 
 src/drilbo/libdrilbo.a::
