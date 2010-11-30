@@ -394,6 +394,7 @@ int close_image_window(x11_image_window_id window_id)
     window->callback(window_id, DRILBO_IMAGE_WINDOW_CLOSED);
 
   XDestroyWindow(x11_display, window->window);
+  XFlush(x11_display);
 
   x11_image_windows[window_id] = NULL;
   free(window);
