@@ -51,7 +51,7 @@
  * This implies the use of threads, one thread being the normal main execution
  * and a second thread -- here: "xevent_thead" -- examines the event queue.
  * This is the reason why drilbo requires thread usage. I've chosen Pthreads 
- * sincle fizmo was designed with POSIX compiatiblity in mind.
+ * since fizmo was designed with POSIX compiatiblity in mind.
  *
  * Next problem: X ist not thread safe. Thus we'll do a select() on the
  * display's file descriptor, lock a mutex and only then touch the event
