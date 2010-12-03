@@ -80,6 +80,8 @@
 #include "drilbo-x11.h"
 #include "../locales/libdrilbo_locales.h"
 
+#define MIN_SCALED_WIDTH 10
+#define MIN_SCALED_HEIGHT 10
 
 static Display *x11_display = NULL;
 static int x11_screennumber;
@@ -762,12 +764,14 @@ x11_image_window_id display_zimage_on_X11(Window *parent_window,
   Window parent;
   XSizeHints *xsizehints;
   bool doInline;
-  z_image *image_dup;
+  z_image *image_dup, *scaled_zimage;
   x11_image_window_id result;
   x11_image_window *result_window;
   int x, y, tmp_x, tmp_y;
   unsigned parent_width, parent_height, tmp_border, tmp_depth;
   Window tmp_window;
+  int scaled_width, scaled_height;
+  double scale_factor;
 
   XSetWindowAttributes attributes;
   unsigned long value_mask;
@@ -815,13 +819,57 @@ x11_image_window_id display_zimage_on_X11(Window *parent_window,
 
   //printf("%d x %d\n", parent_width, parent_height);
 
-  if (parent_width > image_dup->width)
-    x = (parent_width - image_dup->width) / 2;
+  if (image_dup->width > parent_width - 10)
+  {
+    scaled_width = parent_width - 10;
+    scale_factor = (double)scaled_width / (double)image_dup->height;
+
+    if (scaled_width < MIN_SCALED_WIDTH)
+    {
+      free_zimage(image_dup);
+      return -1;
+    }
+
+    scaled_height = image_dup->height * scale_factor;
+  }
+  else
+  {
+    scaled_height = image_dup->height;
+    scaled_width = image_dup->width;
+  }
+
+  if ((unsigned)scaled_height > parent_height - 10)
+  {
+    scaled_height = parent_height - 10;
+    scale_factor = (double)scaled_height / (double)image_dup->height;
+    scaled_width = (double)image_dup->width * scale_factor;
+    if (scaled_height < MIN_SCALED_HEIGHT)
+    {
+      free_zimage(image_dup);
+      return -1;
+    }
+  }
+
+  if ((unsigned)scaled_width == image_dup->width)
+  {
+    scaled_zimage = image_dup;
+  }
+  else
+  {
+    scaled_zimage = scale_zimage_to_width(image_dup,scaled_width);
+    free_zimage(image_dup);
+
+    if (scaled_zimage == NULL)
+      return -1;
+  }
+
+  if (parent_width > scaled_zimage->width)
+    x = (parent_width - scaled_zimage->width) / 2;
   else
     x = 20;
 
-  if (parent_height > image_dup->height)
-    y = (parent_height - image_dup->height) / 2;
+  if (parent_height > scaled_zimage->height)
+    y = (parent_height - scaled_zimage->height) / 2;
   else
     y = 20;
 
@@ -833,8 +881,8 @@ x11_image_window_id display_zimage_on_X11(Window *parent_window,
       parent,
       x,
       y,
-      image_dup->width,
-      image_dup->height, // + (x11_macos == true ? 16 : 0),
+      scaled_zimage->width,
+      scaled_zimage->height, // + (x11_macos == true ? 16 : 0),
       0,
       x11_defaultdepth,
       InputOutput,
@@ -843,7 +891,11 @@ x11_image_window_id display_zimage_on_X11(Window *parent_window,
       &attributes);
 
   result = add_x11_image_window(
-      window, image_dup->width, image_dup->height, image_dup, callback_func);
+      window,
+      scaled_zimage->width,
+      scaled_zimage->height,
+      scaled_zimage,
+      callback_func);
   result_window = x11_image_windows[result];
 
   if (doInline == true)
@@ -870,10 +922,10 @@ x11_image_window_id display_zimage_on_X11(Window *parent_window,
   }
 
   xsizehints = XAllocSizeHints();
-  xsizehints->min_aspect.x = image_dup->width;
-  xsizehints->min_aspect.y = image_dup->height;
-  xsizehints->max_aspect.x = image_dup->width;
-  xsizehints->max_aspect.y = image_dup->height;
+  xsizehints->min_aspect.x = scaled_zimage->width;
+  xsizehints->min_aspect.y = scaled_zimage->height;
+  xsizehints->max_aspect.x = scaled_zimage->width;
+  xsizehints->max_aspect.y = scaled_zimage->height;
   xsizehints->flags = PAspect;
   atom = XInternAtom(x11_display, "WM_SIZE_HINTS", True);
   XSetWMSizeHints(x11_display, window, xsizehints, atom);
