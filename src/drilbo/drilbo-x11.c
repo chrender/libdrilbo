@@ -636,13 +636,16 @@ int init_x11_display()
   int flags;
 
   if (x11_display != NULL)
-    return -1;
+    return 0;
 
   if ((x11_display = XOpenDisplay(NULL)) == NULL)
+    return -1;
+/*
     i18n_translate_and_exit(
         libdrilbo_module_name,
         i18n_libdrilbo_COULD_NOT_OPEN_X11,
         -1);
+*/
 
   XSetErrorHandler(&x_error_handler);
   pthread_mutex_init(&xevent_mutex, NULL);
@@ -777,7 +780,10 @@ x11_image_window_id display_zimage_on_X11(Window *parent_window,
   unsigned long value_mask;
 
   if (x11_display == NULL)
-    init_x11_display();
+  {
+    if (init_x11_display() < 0)
+      return -1;
+  }
 
   pthread_mutex_lock(&xevent_mutex);
 
