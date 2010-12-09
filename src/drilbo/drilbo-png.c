@@ -93,10 +93,17 @@ z_image* read_zimage_from_png(FILE *in)
 
   png_read_info(png_ptr, info_ptr);
 
+#if PNG_LIBPNG_VER_MAJOR > 1 || (PNG_LIBPNG_VER_MAJOR == 1 && PNG_LIBPNG_VER_MINOR >= 4)
+  width = png_get_image_width(png_ptr, info_ptr);
+  height = png_get_image_height(png_ptr, info_ptr);
+  color_type = png_get_color_type(png_ptr, info_ptr);
+  bit_depth = png_get_bit_depth(png_ptr, info_ptr);
+#else
   width = info_ptr->width;
   height = info_ptr->height;
   color_type = info_ptr->color_type;
   bit_depth = info_ptr->bit_depth;
+#endif
 
   if (color_type == PNG_COLOR_TYPE_GRAY)
     bytes_per_pixel = 1;
@@ -106,7 +113,11 @@ z_image* read_zimage_from_png(FILE *in)
   if (color_type == PNG_COLOR_TYPE_PALETTE)
     png_set_palette_to_rgb(png_ptr);
   if (color_type == PNG_COLOR_TYPE_GRAY && bit_depth < 8)
+#if PNG_LIBPNG_VER_MAJOR > 1 || (PNG_LIBPNG_VER_MAJOR == 1 && PNG_LIBPNG_VER_MINOR >= 4)
+    png_set_expand_gray_1_2_4_to_8(png_ptr);
+#else
     png_set_gray_1_2_4_to_8(png_ptr);
+#endif
   if (png_get_valid(png_ptr, info_ptr, PNG_INFO_tRNS))
     png_set_tRNS_to_alpha(png_ptr);
 
