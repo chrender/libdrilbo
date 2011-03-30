@@ -1,4 +1,6 @@
 
+.PHONY : clean
+
 include ../../config.mk
 
 ifneq ($(ENABLE_GDB_SYMBOLS),)
@@ -9,14 +11,14 @@ ifneq ($(ENABLE_OPTIMIZATION),)
 override CFLAGS += -O2
 endif
 
+FIZMO_CFLAGS = $(shell pkg-config --cflags libfizmo)
 
-.PHONY : clean
 
 all: libdrilbo_locales.o
 
 
 libdrilbo_locales.o: libdrilbo_locales.c
-	$(CC) $(CFLAGS) -I$(FIZMO_INC_DIR) -c libdrilbo_locales.c
+	$(CC) $(CFLAGS) $(FIZMO_CFLAGS) -c libdrilbo_locales.c
 
 clean:
 	rm -f *.o

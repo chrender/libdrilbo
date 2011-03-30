@@ -75,7 +75,7 @@
 #include <fcntl.h>
 #include <errno.h>
 
-#include <fizmo/tools/i18n.h>
+#include  "tools/i18n.h"
 
 #include "drilbo-x11.h"
 #include "../locales/libdrilbo_locales.h"

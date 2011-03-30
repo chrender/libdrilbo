@@ -33,7 +33,7 @@
 #ifndef libdrilbo_locales_c_INCLUDED 
 #define libdrilbo_locales_c_INCLUDED
 
-#include <fizmo/tools/types.h>
+#include  "tools/types.h"
 
 z_ucs libdrilbo_module_name[] = { 'l','i','b','d','r','i','l','b','o', 0 };
 

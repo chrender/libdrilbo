@@ -33,6 +33,8 @@
 #ifndef libdrilbo_locales_h_INCLUDED 
 #define libdrilbo_locales_h_INCLUDED
 
+#include <tools/types.h>
+
 #define i18n_libdrilbo_COULD_NOT_OPEN_X11 0
 
 extern z_ucs libdrilbo_module_name[];

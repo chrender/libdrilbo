@@ -36,9 +36,9 @@
 #include <errno.h>
 #include <stdlib.h>
 
-#include <fizmo/tools/tracelog.h>
-#include <fizmo/tools/i18n.h>
-#include <fizmo/tools/z_ucs.h>
+#include <tools/tracelog.h>
+#include <tools/i18n.h>
+#include <tools/z_ucs.h>
 
 #include "drilbo.h"
 #include "drilbo-ppm.h"
@@ -149,6 +149,8 @@ int setup_callback()
 
   if ((fcntl(STDIN_FILENO, F_SETFL, flags|O_NONBLOCK)) == -1)
     return -1;
+
+  return 0;
 }
 
 
@@ -222,21 +224,24 @@ int main(int UNUSED(argc), char *UNUSED(argv[]))
   char *env_window_id;
   XID window_id;
 #endif // TEST_X11
-  z_ucs *search_path;
+  //z_ucs *search_path;
 
 #ifdef ENABLE_TRACING
   turn_on_trace();
 #endif // ENABLE_TRACING
 
+  /*
   if ((search_path = dup_latin1_string_to_zucs_string("../locales")) == NULL)
   {
     fprintf(stderr, "Could not duplicate search path.\n");
     return -1;
   }
+  */
 
   register_i18n_stream_output_function(&i18n_test_stream_output);
 
-  if (set_i18n_search_path(search_path) != 0)
+  //if (set_i18n_search_path(search_path) != 0)
+  if (set_i18n_search_path("../locales") != 0)
   {
     fprintf(stderr, "Could not set search path.\n");
     return -2;
@@ -356,10 +361,11 @@ int main(int UNUSED(argc), char *UNUSED(argv[]))
     image_window_id = display_zimage_on_X11(&window_id, mg1_image,
         &callback_func);
     wait_for_callback();
+    end_x11_display();
   }
   else
   {
-    printf("getenf(\"WINDOWID\") return null, probably not running X.\n");
+    printf("getenv(\"WINDOWID\") return null, probably not running X.\n");
   }
 
   //XID window_id;
@@ -367,7 +373,6 @@ int main(int UNUSED(argc), char *UNUSED(argv[]))
   //image_window_id = display_zimage_on_X11(brain_ad_jpg, &callback_func);
   //wait_for_enter();
 
-  end_x11_display();
 #endif
 
   //free_zimage(brain_ad);
