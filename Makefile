@@ -1,5 +1,5 @@
 
-.PHONY : all install install-locales clean distclean
+.PHONY : all install install-dev install-locales clean distclean
 
 include config.mk
 
@@ -15,7 +15,9 @@ all: libdrilbo.a
 libdrilbo.a: src/drilbo/libdrilbo.a
 	mv src/drilbo/libdrilbo.a .
 
-install:: libdrilbo.a install-locales
+install:: install-locales
+
+install-dev:: libdrilbo.a
 	mkdir -p $(DEV_INSTALL_PREFIX)/lib/fizmo
 	cp libdrilbo.a $(DEV_INSTALL_PREFIX)/lib/fizmo
 	mkdir -p $(DEV_INSTALL_PREFIX)/include/fizmo/drilbo
