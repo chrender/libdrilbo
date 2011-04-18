@@ -63,6 +63,7 @@ z_image *scale_zimage(z_image *image, int dest_width, int dest_height);
 z_image *scale_zimage_to_width(z_image *image, int dest_width);
 z_image *zimage_dup(z_image *image);
 void free_zimage(z_image *image);
+char *get_drilbo_version();
 
 #endif /* drilbo_h_INCLUDED */
 

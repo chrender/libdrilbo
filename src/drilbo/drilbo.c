@@ -230,5 +230,11 @@ void free_zimage(z_image *image)
   free(image);
 }
 
+
+char *get_drilbo_version()
+{
+  return DRILBO_VERSION;
+}
+
 #endif /* drilbo_c_INCLUDED */
 
