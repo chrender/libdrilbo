@@ -38,7 +38,7 @@ else
 endif
 	echo 'Requires.private:' >>$(PKGFILE)
 	echo 'Cflags: -I$(DEV_INSTALL_PREFIX)/include/fizmo $(DRILBO_NONPKG_X11_CFLAGS) $(DRILBO_NONPKG_LIBJPEG_CFLAGS) $(DRILBO_NONPKG_LIBPNG_CFLAGS) ' >>$(PKGFILE)
-	echo 'Libs: -L$(DEV_INSTALL_PREFIX)/lib/fizmo -ldrilbo $(DRILBO_NONPKG_X11_LIBS) $(DRILBO_NONPKG_LIBJPEG_LIBS) $(DRILBO_NONPKG_LIBPNG_LIBS)'  >>$(PKGFILE)
+	echo 'Libs: -L$(DEV_INSTALL_PREFIX)/lib/fizmo -ldrilbo -lpthread $(DRILBO_NONPKG_X11_LIBS) $(DRILBO_NONPKG_LIBJPEG_LIBS) $(DRILBO_NONPKG_LIBPNG_LIBS)'  >>$(PKGFILE)
 	echo >>$(PKGFILE)
 
 install-locales::
