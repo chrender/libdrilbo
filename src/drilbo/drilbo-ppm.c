@@ -43,24 +43,24 @@
 #endif
 
 #include <inttypes.h>
-#include <stdio.h>
+#include <tools/filesys.h>
 
 #include "drilbo-ppm.h"
 
-void write_zimage_to_ppm(z_image *image, FILE *out)
+void write_zimage_to_ppm(z_image *image, z_file *out)
 {
   uint32_t y,x;
   uint8_t *ptr = image->data;
 
-  fprintf(out, "P3\n");
-  fprintf(out, "%d %d\n", image->width, image->height);
-  fprintf(out, "%d\n", (2 << (image->bits_per_sample-1)) - 1);
+  fsi->fileprintf(out, "P3\n");
+  fsi->fileprintf(out, "%d %d\n", image->width, image->height);
+  fsi->fileprintf(out, "%d\n", (2 << (image->bits_per_sample-1)) - 1);
 
   for (y=0; y<image->height; y++)
   {
     for (x=0; x<image->width*3; x++)
     {
-      fprintf(out, "%d\n", *ptr++);
+      fsi->fileprintf(out, "%d\n", *ptr++);
     }
   }
 }

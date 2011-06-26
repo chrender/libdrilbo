@@ -34,14 +34,16 @@
 #define drilbo_jpeg_c_INCLUDED
 
 #include <stdbool.h>
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <jpeglib.h>
+
+#include <tools/filesys.h>
 
 #include "drilbo.h"
 
 
-z_image* read_zimage_from_jpeg(FILE *in)
+z_image* read_zimage_from_jpeg(z_file *in)
 {
   struct jpeg_decompress_struct cinfo;
   struct jpeg_error_mgr jerr;
@@ -61,7 +63,7 @@ z_image* read_zimage_from_jpeg(FILE *in)
   //jerr.error_exit = my_error_exit;
 
   jpeg_create_decompress(&cinfo);
-  jpeg_stdio_src(&cinfo, in);
+  jpeg_stdio_src(&cinfo, fsi->get_stdio_stream(in));
   jpeg_read_header(&cinfo, TRUE);
 
   if (cinfo.out_color_space == JCS_RGB)
@@ -176,7 +178,8 @@ end;
 */
 
 
-void write_zimage_to_jpeg(z_image *image, FILE *out, J_COLOR_SPACE color_space)
+void write_zimage_to_jpeg(z_image *image, z_file *out,
+    J_COLOR_SPACE color_space)
 {
   struct jpeg_compress_struct cinfo;
   struct jpeg_error_mgr jerr;
@@ -212,7 +215,7 @@ void write_zimage_to_jpeg(z_image *image, FILE *out, J_COLOR_SPACE color_space)
   {
     cinfo.err = jpeg_std_error(&jerr);
     jpeg_create_compress(&cinfo);
-    jpeg_stdio_dest(&cinfo, out);
+    jpeg_stdio_dest(&cinfo, fsi->get_stdio_stream(out));
 
     cinfo.image_width = image->width;
     cinfo.image_height = image->height;

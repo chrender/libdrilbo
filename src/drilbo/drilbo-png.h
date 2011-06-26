@@ -33,16 +33,13 @@
 #ifndef drilbo_png_h_INCLUDED
 #define drilbo_png_h_INCLUDED
 
-//#include <stdbool.h>
-#include <stdio.h>
-//#include <stdlib.h>
-//#include <pnglib.h>
+#include <tools/types.h>
 
 #include "drilbo.h"
 
 
-z_image* read_zimage_from_png(FILE *in);
-//void write_zimage_to_png(z_image *image, FILE *out);
+z_image* read_zimage_from_png(z_file *in);
+//void write_zimage_to_png(z_image *image, z_file *out);
 
 
 #endif /* drilbo_png_h_INCLUDED */

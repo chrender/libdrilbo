@@ -59,22 +59,22 @@ drilbo.o: drilbo.h drilbo.c
 	$(CC) $(CFLAGS) -c drilbo.c
 
 drilbo-ppm.o: drilbo-ppm.h drilbo-ppm.c
-	$(CC) $(CFLAGS) -c drilbo-ppm.c
+	$(CC) $(CFLAGS) $(FIZMO_CFLAGS) -c drilbo-ppm.c
 
 drilbo-mg1.o: drilbo-mg1.h drilbo-mg1.c
-	$(CC) $(CFLAGS) -c drilbo-mg1.c
+	$(CC) $(CFLAGS) $(FIZMO_CFLAGS) -c drilbo-mg1.c
 
 drilbo-jpeg.o:drilbo.h drilbo-jpeg.h drilbo-jpeg.c
-	$(CC) $(CFLAGS) $(DRILBO_PKG_LIBJPEG_CFLAGS) $(DRILBO_NONPKG_LIBJPEG_CFLAGS) -c drilbo-jpeg.c
+	$(CC) $(CFLAGS) $(FIZMO_CFLAGS) $(DRILBO_PKG_LIBJPEG_CFLAGS) $(DRILBO_NONPKG_LIBJPEG_CFLAGS) -c drilbo-jpeg.c
 
 drilbo-png.o: drilbo.h drilbo-png.h drilbo-png.c
-	$(CC) $(CFLAGS) $(DRILBO_PKG_LIBPNG_CFLAGS) $(DRILBO_NONPKG_LIBPNG_CFLAGS) -c drilbo-png.c
+	$(CC) $(CFLAGS) $(FIZMO_CFLAGS) $(DRILBO_PKG_LIBPNG_CFLAGS) $(DRILBO_NONPKG_LIBPNG_CFLAGS) -c drilbo-png.c
 
 drilbo-x11.o: drilbo-x11.h drilbo-x11.c
 	$(CC) $(CFLAGS) $(FIZMO_CFLAGS) $(DRILBO_PKG_X11_CFLAGS) $(DRILBO_NONPKG_X11_CFLAGS) -c drilbo-x11.c
 
 drilbo-test: libdrilbo.a drilbo-test.o
-	$(CC) $(CFLAGS) drilbo.o drilbo-test.o -L. -ldrilbo $(DRILBO_LIBS) -o drilbo-test
+	$(CC) $(CFLAGS) $(FIZMO_CFLAGS) drilbo.o drilbo-test.o -L. -ldrilbo $(DRILBO_LIBS) -o drilbo-test
 
 drilbo-test.o: drilbo-test.c libdrilbo.a
 	$(CC) $(CFLAGS) $(FIZMO_CFLAGS) $(DRILBO_TEST_FLAGS) $(DRILBO_PKG_LIBJPEG_CFLAGS) $(DRILBO_NONPKG_LIBJPEG_CFLAGS) $(DRILBO_PKG_LIBPNG_CFLAGS) $(DRILBO_NONPKG_LIBPNG_CFLAGS) $(DRILBO_PKG_X11_CFLAGS) $(DRILBO_NONPKG_X11_CFLAGS) -c drilbo-test.c

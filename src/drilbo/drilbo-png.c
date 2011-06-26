@@ -33,16 +33,17 @@
 #ifndef drilbo_png_c_INCLUDED
 #define drilbo_png_c_INCLUDED
 
-//#include <stdbool.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <png.h>
+
+#include <tools/types.h>
+#include <tools/filesys.h>
 
 #include "drilbo.h"
 #include "drilbo-png.h"
 
 
-z_image* read_zimage_from_png(FILE *in)
+z_image* read_zimage_from_png(z_file *in)
 {
   uint8_t header[8];
   int y;
@@ -57,7 +58,7 @@ z_image* read_zimage_from_png(FILE *in)
   z_image *result;
   int bytes_per_pixel;
 
-  fread(header, 1, 8, in);
+  fsi->getchars(header, 8, in);
   if (png_sig_cmp(header, 0, 8))
     return NULL;
 
@@ -88,7 +89,7 @@ z_image* read_zimage_from_png(FILE *in)
     exit(-1);
   }
 
-  png_init_io(png_ptr, in);
+  png_init_io(png_ptr, fsi->get_stdio_stream(in));
   png_set_sig_bytes(png_ptr, 8);
 
   png_read_info(png_ptr, info_ptr);
@@ -159,7 +160,7 @@ z_image* read_zimage_from_png(FILE *in)
 
 
 /*
-void write_zimage_to_png(z_image *image, FILE *out)
+void write_zimage_to_png(z_image *image, z_file *out)
 {
 }
 */

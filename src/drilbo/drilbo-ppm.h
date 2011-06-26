@@ -43,11 +43,11 @@
 #endif
 
 #include <inttypes.h>
-#include <stdio.h>
+#include <tools/filesys.h>
 
 #include "drilbo.h"
 
-void write_zimage_to_ppm(z_image *image, FILE *out);
+void write_zimage_to_ppm(z_image *image, z_file *out);
 
 #endif /* drilbo_ppm_h_INCLUDED */
 

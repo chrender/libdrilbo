@@ -45,7 +45,6 @@
 #endif
 
 #include <inttypes.h>
-#include <stdio.h>
 
 #define DRILBO_IMAGE_TYPE_RGB 1
 #define DRILBO_IMAGE_TYPE_GRAYSCALE 2

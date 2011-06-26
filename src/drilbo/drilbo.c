@@ -34,7 +34,6 @@
 #define drilbo_c_INCLUDED
 
 #include <stdbool.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 

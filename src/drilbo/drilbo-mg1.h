@@ -34,14 +34,13 @@
 #define drilbo_mg1_h_INCLUDED
 
 #include <stdbool.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <inttypes.h>
 
 #include "drilbo.h"
 
 
-int init_mg1_graphics(char *mg1_filename);
+int init_mg1_graphics(const char *mg1_filename);
 uint16_t get_number_of_mg1_images();
 uint16_t *get_all_picture_numbers();
 z_image *get_picture(int picture_number);

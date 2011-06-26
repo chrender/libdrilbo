@@ -34,15 +34,15 @@
 #define drilbo_jpeg_h_INCLUDED
 
 #include <stdbool.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <jpeglib.h>
 
 #include "drilbo.h"
 
 
-z_image* read_zimage_from_jpeg(FILE *in);
-void write_zimage_to_jpeg(z_image *image, FILE *out, J_COLOR_SPACE color_space);
+z_image* read_zimage_from_jpeg(z_file *in);
+void write_zimage_to_jpeg(z_image *image, z_file *out,
+    J_COLOR_SPACE color_space);
 
 
 #endif /* drilbo_jpeg_h_INCLUDED */

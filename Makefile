@@ -15,6 +15,9 @@ all: libdrilbo.a
 libdrilbo.a: src/drilbo/libdrilbo.a
 	mv src/drilbo/libdrilbo.a .
 
+test:
+	cd src/drilbo ; make test
+
 install:: install-locales
 
 install-dev:: libdrilbo.a
