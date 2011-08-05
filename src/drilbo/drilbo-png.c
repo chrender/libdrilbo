@@ -109,7 +109,7 @@ z_image* read_zimage_from_png(z_file *in)
   bit_depth = info_ptr->bit_depth;
 #endif
 
-  printf("%d * %d, %dbpp\n", width, height, bit_depth);
+  //printf("%d * %d, %dbpp\n", width, height, bit_depth);
 
   if (png_get_bKGD(png_ptr, info_ptr, &image_background))
     png_set_background(png_ptr, image_background,
@@ -142,7 +142,15 @@ z_image* read_zimage_from_png(z_file *in)
   if (bit_depth == 16)
     png_set_strip_16(png_ptr);
 
-  row_bytes = png_get_rowbytes(png_ptr, info_ptr);
+  //row_bytes = png_get_rowbytes(png_ptr, info_ptr);
+  //printf("suggested-rowbytes: %d\n", row_bytes);
+
+  // For some strange reason, the "png_get_rowbytes" will return the width
+  // of image "infocom-brain-ad.png" instead of width * 3, so we have to
+  // calculate "row_bytes" on our own:
+  row_bytes = width * bytes_per_pixel;
+
+  //printf("rbtes: %d\n", (long)row_bytes);
   zimage_data = malloc((long)row_bytes * height);
 
   png_read_update_info(png_ptr, info_ptr);
