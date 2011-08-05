@@ -61,7 +61,8 @@
 
 #define STREAM_BUFSIZE 128
 
-static const char *ppm_out_file_name = "shogun.ppm";
+static const char *png_ppm_out_file_name = "infocom-brain-ad.ppm";
+static const char *mg1_ppm_out_file_name = "shogun.ppm";
 
 static const char *jpeg_in_file_name = "../test/infocom-brain-ad.jpg";
 static const char *jpeg_out_file_rgb_name = "ad-RGB.jpg";
@@ -269,7 +270,7 @@ int main(int UNUSED(argc), char *UNUSED(argv[]))
   if (mg1_image == NULL)
     return -1;
 
-  out = fsi->openfile(ppm_out_file_name, FILETYPE_DATA, FILEACCESS_WRITE);
+  out = fsi->openfile(mg1_ppm_out_file_name, FILETYPE_DATA, FILEACCESS_WRITE);
   write_zimage_to_ppm(mg1_image, out);
   fsi->closefile(out);
 
@@ -321,6 +322,10 @@ int main(int UNUSED(argc), char *UNUSED(argv[]))
   in = fsi->openfile(png_in_file_name, FILETYPE_DATA, FILEACCESS_READ);
   brain_ad_png = read_zimage_from_png(in);
   fsi->closefile(in);
+
+  out = fsi->openfile(png_ppm_out_file_name, FILETYPE_DATA, FILEACCESS_WRITE);
+  write_zimage_to_ppm(brain_ad_png, out);
+  fsi->closefile(out);
 
   /*
   printf("Loading PNG file \"%s\" ...\n", png_in_file_name);
