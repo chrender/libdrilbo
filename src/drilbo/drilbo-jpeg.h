@@ -35,14 +35,19 @@
 
 #include <stdbool.h>
 #include <stdlib.h>
-#include <jpeglib.h>
+//#include <jpeglib.h>
 
 #include "drilbo.h"
 
+#define COLORSPACE_JCS_CMYK 0
+#define COLORSPACE_JCS_YCCK 1
+#define COLORSPACE_JCS_UNKNOWN 2
+#define COLORSPACE_JCS_RGB 3
+#define COLORSPACE_JCS_GRAYSCALE 4
+#define COLORSPACE_JCS_YCbCr 5
 
 z_image* read_zimage_from_jpeg(z_file *in);
-void write_zimage_to_jpeg(z_image *image, z_file *out,
-    J_COLOR_SPACE color_space);
+void write_zimage_to_jpeg(z_image *image, z_file *out, int color_space);
 
 
 #endif /* drilbo_jpeg_h_INCLUDED */

@@ -41,6 +41,7 @@
 #include <tools/filesys.h>
 
 #include "drilbo.h"
+#include "drilbo-jpeg.h"
 
 
 z_image* read_zimage_from_jpeg(z_file *in)
@@ -178,8 +179,7 @@ end;
 */
 
 
-void write_zimage_to_jpeg(z_image *image, z_file *out,
-    J_COLOR_SPACE color_space)
+void write_zimage_to_jpeg(z_image *image, z_file *out, int color_space)
 {
   struct jpeg_compress_struct cinfo;
   struct jpeg_error_mgr jerr;
@@ -190,29 +190,39 @@ void write_zimage_to_jpeg(z_image *image, z_file *out,
   uint32_t i;
   int j;
   uint8_t *img_data_ptr;
+  J_COLOR_SPACE jpeg_color_space;
 
   if (image == NULL)
     return;
 
-  if (color_space == JCS_CMYK)
+  if (color_space == COLORSPACE_JCS_CMYK)
     return;
 
-  if (color_space == JCS_YCCK)
+  if (color_space == COLORSPACE_JCS_YCCK)
     return;
 
-  if (color_space == JCS_UNKNOWN)
+  if (color_space == COLORSPACE_JCS_UNKNOWN)
     return;
 
   img_data_ptr = image->data;
 
   if (
-      (color_space == JCS_RGB)
+      (color_space == COLORSPACE_JCS_RGB)
       ||
-      (color_space == JCS_GRAYSCALE)
+      (color_space == COLORSPACE_JCS_GRAYSCALE)
       ||
-      (color_space == JCS_YCbCr)
-      )
+      (color_space == COLORSPACE_JCS_YCbCr)
+     )
   {
+    if (color_space == COLORSPACE_JCS_RGB)
+      jpeg_color_space = JCS_RGB;
+    else if (color_space == COLORSPACE_JCS_GRAYSCALE)
+      jpeg_color_space = JCS_GRAYSCALE;
+    else if (color_space == COLORSPACE_JCS_YCbCr)
+      jpeg_color_space = JCS_YCbCr;
+    else
+      return;
+
     cinfo.err = jpeg_std_error(&jerr);
     jpeg_create_compress(&cinfo);
     jpeg_stdio_dest(&cinfo, fsi->get_stdio_stream(out));
@@ -227,7 +237,7 @@ void write_zimage_to_jpeg(z_image *image, z_file *out,
 
       jpeg_set_defaults(&cinfo);
 
-      jpeg_set_colorspace(&cinfo, color_space);
+      jpeg_set_colorspace(&cinfo, jpeg_color_space);
 
       jpeg_start_compress(&cinfo, TRUE);
 
