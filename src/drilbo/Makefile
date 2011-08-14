@@ -83,8 +83,10 @@ drilbo-test.o: drilbo-test.c libdrilbo.a
 	$(CC) $(CFLAGS) $(FIZMO_CFLAGS) $(DRILBO_TEST_FLAGS) $(DRILBO_PKG_LIBJPEG_CFLAGS) $(DRILBO_NONPKG_LIBJPEG_CFLAGS) $(DRILBO_PKG_LIBPNG_CFLAGS) $(DRILBO_NONPKG_LIBPNG_CFLAGS) $(DRILBO_PKG_X11_CFLAGS) $(DRILBO_NONPKG_X11_CFLAGS) -c drilbo-test.c
 
 clean:
+	cd ../locales ; make clean
 	rm -f *.o ad-RGB.jpg ad-YCbCr.jpg ad-Grayscale.jpg shogun.ppm tracelog.txt
 
 distclean: clean
+	cd ../locales ; make distclean
 	rm -f libdrilbo.a
 
