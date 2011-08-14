@@ -37,7 +37,21 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <tools/tracelog.h>
+#include <tools/filesys.h>
+#include <interpreter/iff.h>
+#include <interpreter/fizmo.h>
+#include <interpreter/blorb.h>
+
 #include "drilbo.h"
+
+#ifdef ENABLE_JPG
+#include "drilbo-jpeg.h"
+#endif // ENABLE_JPG
+
+#ifdef ENABLE_PNG
+#include "drilbo-png.h"
+#endif // ENABLE_PNG
 
 
 /*
@@ -220,6 +234,51 @@ z_image *zimage_dup(z_image *image)
   memcpy(result->data, image->data, len);
 
   return result;
+}
+
+
+z_image *get_blorb_image(int resource_number)
+{
+  long pict_blorb_index;
+  char buf[5];
+  uint32_t size;
+
+  if ((pict_blorb_index = active_blorb_interface->get_blorb_offset(
+          active_z_story->blorb_map, Z_BLORB_TYPE_PICT, resource_number)) == -1)
+    return NULL;
+
+  fsi->setfilepos(
+      active_z_story->blorb_file, pict_blorb_index - 8, SEEK_SET);
+
+  if (fsi->getchars(buf, 4, active_z_story->blorb_file) != 4)
+    return NULL;
+  buf[4] = 0;
+
+  size = read_four_byte_number(active_z_story->blorb_file);
+
+  if (strcmp(buf, "JPEG") == 0)
+  {
+#ifdef ENABLE_JPG
+    TRACE_LOG("Reading JPEG image.");
+    return read_zimage_from_jpeg(active_z_story->blorb_file);
+#else
+    return NULL;
+#endif // ENABLE_JPG
+  }
+  else if (strcmp(buf, "PNG " ) == 0)
+  {
+#ifdef ENABLE_PNG
+    TRACE_LOG("Reading PNG image.");
+    return read_zimage_from_png(active_z_story->blorb_file);
+#else
+    return NULL;
+#endif // ENABLE_PNG
+  }
+  else
+  {
+    TRACE_LOG("No idea how to handle \"%s\".\n", buf);
+    return NULL;
+  }
 }
 
 
