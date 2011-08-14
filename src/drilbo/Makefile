@@ -13,10 +13,13 @@ ifneq ($(ENABLE_TRACING),)
 override CFLAGS += -DENABLE_TRACING=
 endif
 
-FIZMO_CFLAGS = $(shell pkg-config --cflags libfizmo)
+FIZMO_CFLAGS = $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config \
+ --cflags libfizmo)
 
-DRILBO_LIBS = $(shell pkg-config --libs libfizmo)
-DRILBO_LIB_OBJECTS = drilbo.o drilbo-mg1.o drilbo-ppm.o ../locales/libdrilbo_locales.o
+DRILBO_LIBS = $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config \
+ --libs libfizmo)
+DRILBO_LIB_OBJECTS = drilbo.o drilbo-mg1.o drilbo-ppm.o \
+ ../locales/libdrilbo_locales.o
 DRILBO_TEST_FLAGS =
 
 
@@ -29,14 +32,14 @@ ifneq ($(DRILBO_ENABLE_X11),)
 endif # DRILBO_ENABLE_X11
 
 ifneq ($(DRILBO_ENABLE_JPG),)
- #DRILBO_CFLAGS += $(DRILBO_PKG_LIBJPEG_CFLAGS) $(DRILBO_NONPKG_LIBJPEG_CFLAGS)
+  DRILBO_CFLAGS += -DENABLE_JPG
   DRILBO_LIBS += $(DRILBO_PKG_LIBJPEG_LIBS) $(DRILBO_NONPKG_LIBJPEG_LIBS)
   DRILBO_TEST_FLAGS += -DTEST_JPEG
   DRILBO_LIB_OBJECTS += drilbo-jpeg.o
 endif # DRILBO_ENABLE_JPG
 
 ifneq ($(DRILBO_ENABLE_PNG),)
- #DRILBO_CFLAGS += $(DRILBO_PKG_LIBPNG_CFLAGS) $(DRILBO_NONPKG_LIBPNG_CFLAGS)
+  DRILBO_CFLAGS += -DENABLE_PNG
   DRILBO_LIBS += $(DRILBO_PKG_LIBPNG_LIBS) $(DRILBO_NONPKG_LIBPNG_LIBS)
   DRILBO_TEST_FLAGS += -DTEST_PNG
   DRILBO_LIB_OBJECTS += drilbo-png.o
@@ -56,7 +59,7 @@ libdrilbo.a: $(DRILBO_LIB_OBJECTS)
 	$(AR) rcs libdrilbo.a $(DRILBO_LIB_OBJECTS)
 
 drilbo.o: drilbo.h drilbo.c
-	$(CC) $(CFLAGS) -c drilbo.c
+	$(CC) $(CFLAGS) $(FIZMO_CFLAGS) $(DRILBO_CFLAGS) -c drilbo.c
 
 drilbo-ppm.o: drilbo-ppm.h drilbo-ppm.c
 	$(CC) $(CFLAGS) $(FIZMO_CFLAGS) -c drilbo-ppm.c
