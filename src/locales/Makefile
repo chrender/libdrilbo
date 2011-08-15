@@ -24,3 +24,5 @@ libdrilbo_locales.o: libdrilbo_locales.c
 clean:
 	rm -f *.o
 
+distclean: clean
+
