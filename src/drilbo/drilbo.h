@@ -3,7 +3,7 @@
  *
  * This file is part of fizmo.
  *
- * Copyright (c) 2009-2010 Christoph Ender.
+ * Copyright (c) 2010-2011 Christoph Ender.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,7 @@
 #ifndef drilbo_h_INCLUDED 
 #define drilbo_h_INCLUDED
 
-#define DRILBO_VERSION "0.2.0-b4"
+#define DRILBO_VERSION "0.2.0-b5"
 
 #ifdef UNUSED 
 #elif defined(__GNUC__) 
