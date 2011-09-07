@@ -33,7 +33,7 @@ install-dev:: libdrilbo.a
 	echo >>"$(PKGFILE)"
 	echo 'Name: libdrilbo' >>"$(PKGFILE)"
 	echo 'Description: libdrilbo' >>"$(PKGFILE)"
-	echo 'Version: 0.2.0-b5' >>"$(PKGFILE)"
+	echo 'Version: 0.2.0' >>"$(PKGFILE)"
 ifeq ($(DRILBO_PKG_REQS),)
 	echo 'Requires: libfizmo >= 0.7 ' >>"$(PKGFILE)"
 else
