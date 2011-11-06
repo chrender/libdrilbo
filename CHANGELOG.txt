@@ -5,6 +5,7 @@
  - Fixed $(DESTDIR) evaluation in config.[default|macports].mk.
  - Adapted Makefiles and configuration to use standard GNU Makefile variables
    instead of INSTALL_PATH and FIZMO_BIN_DIR.
+ - Removed "drilbo-x11.c" requirement for "Xatom.h".
 
    Version 0.2.0
  + 0.2.0 was finished at about Sun Sep 18 08:41:18 CEST 2011
