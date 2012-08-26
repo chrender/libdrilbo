@@ -33,7 +33,7 @@ AS_IF([test "x$enable_x11" != "xno"], [
   AS_IF([test "x$libdrilbo_reqs" != "x"], [
           libdrilbo_reqs+=", "
   ])
-  libdrilbo_reqs+="sndfile"
+  libdrilbo_reqs+="x11"
 ])
 AS_IF([test "x$enable_jpeg" != "xno"], [
   PKG_CHECK_MODULES([jpeg], [jpeg])
