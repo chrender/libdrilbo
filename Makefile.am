@@ -1,24 +1,20 @@
 
-.PHONY : all install install-dev install-locales clean distclean
+AUTOMAKE_OPTIONS = -Wno-override
 
-include config.mk
+localedir = $(datarootdir)/fizmo/locales
 
-ifeq ($(fizmo_build_prefix),)
-  fizmo_build_prefix="$(DESTDIR)$(prefix)"
+if FIZMO_BUILD_PREFIX_EMPTY
+  fizmo_build_prefix=$(DESTDIR)$(prefix)
 endif
+
 PKG_DIR = $(fizmo_build_prefix)/lib/pkgconfig
 PKGFILE = $(PKG_DIR)/libdrilbo.pc
 
+SUBDIRS = src/drilbo .
+noinst_LIBRARIES = libdrilbo.a
 
-all: libdrilbo.a
-
-libdrilbo.a: src/drilbo/libdrilbo.a
+libdrilbo.a:
 	mv src/drilbo/libdrilbo.a .
-
-test:
-	cd src/drilbo ; make test
-
-install:: install-locales
 
 install-dev:: libdrilbo.a
 	mkdir -p "$(fizmo_build_prefix)"/lib/fizmo
@@ -33,12 +29,8 @@ install-dev:: libdrilbo.a
 	echo >>"$(PKGFILE)"
 	echo 'Name: libdrilbo' >>"$(PKGFILE)"
 	echo 'Description: libdrilbo' >>"$(PKGFILE)"
-	echo 'Version: 0.2.2' >>"$(PKGFILE)"
-ifeq ($(DRILBO_PKG_REQS),)
-	echo 'Requires: libfizmo >= 0.7 ' >>"$(PKGFILE)"
-else
-	echo 'Requires: libfizmo >= 0.7, $(DRILBO_PKG_REQS) ' >>"$(PKGFILE)"
-endif
+	echo 'Version: 0.2.3' >>"$(PKGFILE)"
+	echo 'Requires: $(LIBDRILBO_REQS)' >>"$(PKGFILE)"
 	echo 'Requires.private:' >>"$(PKGFILE)"
 	echo 'Cflags: -I$(fizmo_build_prefix)/include/fizmo $(DRILBO_NONPKG_X11_CFLAGS) $(DRILBO_NONPKG_LIBJPEG_CFLAGS) $(DRILBO_NONPKG_LIBPNG_CFLAGS) ' >>"$(PKGFILE)"
 	echo 'Libs: -L$(fizmo_build_prefix)/lib/fizmo -ldrilbo -lpthread $(DRILBO_NONPKG_X11_LIBS) $(DRILBO_NONPKG_LIBJPEG_LIBS) $(DRILBO_NONPKG_LIBPNG_LIBS)'  >>"$(PKGFILE)"
@@ -51,14 +43,4 @@ install-locales::
 	  mkdir -p "$(DESTDIR)$(localedir)/$$l" ; \
 	  cp src/locales/$$l/*.txt "$(DESTDIR)$(localedir)/$$l" ; \
 	done
-
-clean::
-	cd src/drilbo ; make clean
-
-distclean:: clean
-	rm -f libdrilbo.a
-	cd src/drilbo ; make distclean
-
-src/drilbo/libdrilbo.a::
-	cd src/drilbo ; make
 
