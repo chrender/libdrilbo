@@ -26,7 +26,7 @@ AC_ARG_ENABLE([png],
 
 AC_INIT([libdrilbo], [0.2.3])
 
-libdrilbo_reqs="fizmo >= 0.7.4"
+libdrilbo_reqs="libfizmo >= 0.7.4"
 PKG_CHECK_MODULES([libfizmo], [libfizmo >= 0.7.4])
 AS_IF([test "x$enable_x11" != "xno"], [
   PKG_CHECK_MODULES([x11], [x11])
@@ -37,10 +37,10 @@ AS_IF([test "x$enable_x11" != "xno"], [
 ])
 AS_IF([test "x$enable_jpeg" != "xno"], [
   PKG_CHECK_MODULES([jpeg], [jpeg])
-  AS_IF([test "x$libdrilbo_reqs" != "x"], [
-          libdrilbo_reqs+=", "
-  ])
-  libdrilbo_reqs+="jpeg"
+# AS_IF([test "x$libdrilbo_reqs" != "x"], [
+#         libdrilbo_reqs+=", "
+# ])
+# libdrilbo_reqs+="jpeg"
 ])
 AS_IF([test "x$enable_png" != "xno"], [
   PKG_CHECK_MODULES([png], [libpng >= 1.2])
