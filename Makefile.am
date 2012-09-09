@@ -32,8 +32,8 @@ install-dev:: libdrilbo.a
 	echo 'Version: 0.2.3' >>"$(PKGFILE)"
 	echo 'Requires: $(LIBDRILBO_REQS)' >>"$(PKGFILE)"
 	echo 'Requires.private:' >>"$(PKGFILE)"
-	echo 'Cflags: -I$(fizmo_build_prefix)/include/fizmo $(DRILBO_NONPKG_X11_CFLAGS) $(DRILBO_NONPKG_LIBJPEG_CFLAGS) $(DRILBO_NONPKG_LIBPNG_CFLAGS) ' >>"$(PKGFILE)"
-	echo 'Libs: -L$(fizmo_build_prefix)/lib/fizmo -ldrilbo -lpthread $(DRILBO_NONPKG_X11_LIBS) $(DRILBO_NONPKG_LIBJPEG_LIBS) $(DRILBO_NONPKG_LIBPNG_LIBS)'  >>"$(PKGFILE)"
+	echo 'Cflags: -I$(fizmo_build_prefix)/include/fizmo $(LIBDRILBO_NONPKG_CFLAGS) ' >>"$(PKGFILE)"
+	echo 'Libs: -L$(fizmo_build_prefix)/lib/fizmo -ldrilbo -lpthread $(LIBDRILBO_NONPKG_LIBS)'  >>"$(PKGFILE)"
 	echo >>"$(PKGFILE)"
 
 install-locales::
