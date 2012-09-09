@@ -14,6 +14,7 @@ SUBDIRS = src/drilbo .
 noinst_LIBRARIES = libdrilbo.a
 
 libdrilbo.a:
+	cd src/drilbo ; make ; cd../..
 	mv src/drilbo/libdrilbo.a .
 
 install-dev:: libdrilbo.a
