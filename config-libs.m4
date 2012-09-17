@@ -15,7 +15,7 @@ AS_IF([test "x$enable_jpeg" != "xno"], [
       libdrilbo_reqs+=", "
      ])
      libdrilbo_reqs+="jpeg" ],
-    [for dir in $JPEG_INCLUDE_DIR /usr/include /usr/local/include /opt/local/include ; do
+    [for dir in $with_jpeg_includedir /usr/include /usr/local/include /opt/local/include ; do
        AC_MSG_CHECKING(for $dir/jpeglib.h)
        if [ test -e $dir/jpeglib.h ]; then
          AC_MSG_RESULT(yes)
@@ -27,14 +27,15 @@ AS_IF([test "x$enable_jpeg" != "xno"], [
      done
      if [ test "x$jpeglib_h_dir" == "x"] ; then
        echo "Could not find libjpeg.h."
-       echo "Try setting the location in the JPEG_INCLUDE_DIR variable."
+       echo "Try setting the location using --with-jpeg-libdir."
        exit
      fi
      libdrilbo_nonpkg_cflags+="-I$jpeglib_h_dir"
 
-     LIBS_OLD=$LIBS
+     LIBS_SAVED=$LIBS
+     LDFLAGS_SAVED=$LDFLAGS
      LIBS="-ljpeg"
-     for dir in $JPEG_LIB_DIR /usr/lib /usr/local/lib /opt/local/lib ; do
+     for dir in $with_jpeg_libdir /usr/lib /usr/local/lib /opt/local/lib ; do
        AC_MSG_CHECKING(for libjpeg in $dir)
        LDFLAGS="-L$dir"
        AC_TRY_LINK(
@@ -49,10 +50,11 @@ AS_IF([test "x$enable_jpeg" != "xno"], [
      done
      if [ test "x$jpeglib_l_dir" == "x"] ; then
        echo "Could not find libjpeg."
-       echo "Try setting the location in the JPEG_LIB_DIR variable."
+       echo "Try setting the location using --with-jpeg-libdir."
        exit
      fi
-     LIBS=$LIBS_OLD
+     LIBS=$LIBS_SAVED
+     LDFLAGS=$LDFLAGS_SAVED
      libdrilbo_nonpkg_libs="-L$jpeglib_l_dir -ljpeg"
     ])
 ])

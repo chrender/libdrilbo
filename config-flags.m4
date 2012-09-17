@@ -11,6 +11,18 @@ AC_ARG_ENABLE([jpeg],
  [],
  [enable_jpeg=yes])
 
+AC_ARG_WITH([jpeg-includedir],
+ [AS_HELP_STRING([--with-jpeg-includedir],
+         [Specify include directory to use for libjpeg])],
+ [],
+ [with_jpeg_includedir=])
+
+AC_ARG_WITH([jpeg-libdir],
+ [AS_HELP_STRING([--with-jpeg-libdir],
+         [Specify library directory for libjpeg])],
+ [],
+ [with_jpeg_libdir=])
+
 AC_ARG_ENABLE([png],
  [AS_HELP_STRING([--disable-png],
                  [disable PNG support])],
