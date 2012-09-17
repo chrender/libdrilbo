@@ -14,17 +14,17 @@ AM_CFLAGS += -DENABLE_TRACING=
 endif
 
 if ENABLE_JPEG
-AM_CFLAGS += -DDRILBO_ENABLE_JPG=
+AM_CFLAGS += -DENABLE_JPG=
 libdrilbo_a_SOURCES += drilbo-jpeg.c
 endif
 
 if ENABLE_PNG
-AM_CFLAGS += -DDRILBO_ENABLE_PNG=
+AM_CFLAGS += -DENABLE_PNG=
 libdrilbo_a_SOURCES += drilbo-png.c
 endif
 
 if ENABLE_X11
-AM_CFLAGS += -DDRILBO_ENABLE_X11=
+AM_CFLAGS += -DENABLE_X11=
 libdrilbo_a_SOURCES += drilbo-x11.c
 endif
 
