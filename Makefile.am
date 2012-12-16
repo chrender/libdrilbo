@@ -41,7 +41,7 @@ PKGFILE = $(PKG_DIR)/libdrilbo.pc
 SUBDIRS = src/drilbo .
 noinst_LIBRARIES = libdrilbo.a
 
-libdrilbo.a:
+libdrilbo.a::
 	cd src/drilbo ; make
 	mv src/drilbo/libdrilbo.a .
 

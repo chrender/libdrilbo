@@ -1,4 +1,7 @@
 
+   Version 0.2.4
+ - Minor fix for libdrilbo build target.
+
    Version 0.2.3
  + 0.2.3 was finished at about Mon Sep 17 22:14:52 CEST 2012.
  - Adapted to new autoconf/automake build process.
