@@ -61,7 +61,7 @@ z_image* read_zimage_from_png(z_file *in)
   png_color_16 black_background = { 0, 0, 0, 0, 0 };
   png_color_16p image_background;
 
-  fsi->getchars(header, 8, in);
+  fsi->readchars(header, 8, in);
   if (png_sig_cmp(header, 0, 8))
     return NULL;
 

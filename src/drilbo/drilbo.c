@@ -250,7 +250,7 @@ z_image *get_blorb_image(int resource_number)
   fsi->setfilepos(
       active_z_story->blorb_file, pict_blorb_index - 8, SEEK_SET);
 
-  if (fsi->getchars(buf, 4, active_z_story->blorb_file) != 4)
+  if (fsi->readchars(buf, 4, active_z_story->blorb_file) != 4)
     return NULL;
   buf[4] = 0;
 

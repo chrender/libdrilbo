@@ -138,7 +138,7 @@ static int read_byte(z_file *in, uint8_t *byte)
 {
   int data;
 
-  if ((data = fsi->getchar(in)) == -1)
+  if ((data = fsi->readchar(in)) == -1)
   { fsi->closefile(in); return -1; }
 
   *byte = (uint8_t)data;
@@ -151,10 +151,10 @@ static int read_word(z_file *in, uint16_t *word)
 {
   int lower, upper;
 
-  if ((lower = fsi->getchar(in)) == -1)
+  if ((lower = fsi->readchar(in)) == -1)
   { fsi->closefile(in); return -1; }
 
-  if ((upper = fsi->getchar(in)) == -1)
+  if ((upper = fsi->readchar(in)) == -1)
   { fsi->closefile(in); return -1; }
 
   *word = (lower & 0xff) | ((upper & 0xff) << 8);
@@ -167,13 +167,13 @@ static int read_24bit(z_file *in, uint32_t *data)
 {
   int lower, middle, upper;
 
-  if ((upper = fsi->getchar(in)) == -1)
+  if ((upper = fsi->readchar(in)) == -1)
   { fsi->closefile(in); return -1; }
 
-  if ((middle = fsi->getchar(in)) == -1)
+  if ((middle = fsi->readchar(in)) == -1)
   { fsi->closefile(in); return -1; }
 
-  if ((lower = fsi->getchar(in)) == -1)
+  if ((lower = fsi->readchar(in)) == -1)
   { fsi->closefile(in); return -1; }
 
   *data = (lower & 0xff) | ((middle & 0xff) << 8) | ((upper & 0xff) << 16);
@@ -325,9 +325,9 @@ static short read_code(z_file *fp, compress_t *comp, unsigned char *code_buffer)
   {
     if (comp->slen == 0)
     {
-      if ((comp->slen = fsi->getchars(code_buffer, MAX_BIT, fp)) == 0)
+      if ((comp->slen = fsi->readchars(code_buffer, MAX_BIT, fp)) == 0)
       {
-        perror("getchars");
+        perror("readchars");
         exit (EXIT_FAILURE);
       }
       comp->slen *= 8;

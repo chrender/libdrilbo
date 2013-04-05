@@ -45,11 +45,11 @@ m4_include(config-flags.m4)
 
 AC_INIT([libdrilbo], [0.2.5])
 
-libdrilbo_reqs="libfizmo >= 0.7.4"
+libdrilbo_reqs="libfizmo >= 0.7.7"
 libdrilbo_nonpkg_cflags=""
 libdrilbo_nonpkg_libs=""
 
-PKG_CHECK_MODULES([libfizmo], [libfizmo >= 0.7.4])
+PKG_CHECK_MODULES([libfizmo], [libfizmo >= 0.7.7])
 
 m4_include(config-libs.m4)
 
