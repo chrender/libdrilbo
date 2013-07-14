@@ -43,7 +43,7 @@ AC_ARG_ENABLE([tracing],
 
 m4_include(config-flags.m4)
 
-AC_INIT([libdrilbo], [0.2.5])
+AC_INIT([libdrilbo], [0.2.6])
 
 libdrilbo_reqs="libfizmo >= 0.7.7"
 libdrilbo_nonpkg_cflags=""
