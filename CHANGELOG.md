@@ -4,6 +4,7 @@
    **Version 0.2.6**
 
  - Adapted to automake v1.14 “subdir-objects” option.
+ - Fixed “AC_CONFIG_AUX_DIR” invocation.
 
 ---
 
