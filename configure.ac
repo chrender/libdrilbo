@@ -44,6 +44,7 @@ AC_ARG_ENABLE([tracing],
 m4_include(config-flags.m4)
 
 AC_INIT([libdrilbo], [0.2.6])
+AC_CONFIG_AUX_DIR([.])
 
 libdrilbo_reqs="libfizmo >= 0.7.8"
 libdrilbo_nonpkg_cflags=""
@@ -53,7 +54,6 @@ PKG_CHECK_MODULES([libfizmo], [libfizmo >= 0.7.8])
 
 m4_include(config-libs.m4)
 
-AC_CONFIG_AUX_DIR([.])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_PROG_CC
 AC_PROG_RANLIB
