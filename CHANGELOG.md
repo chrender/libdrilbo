@@ -5,6 +5,7 @@
 
  - Adapted to automake v1.14 “subdir-objects” option.
  - Fixed “AC_CONFIG_AUX_DIR” invocation.
+ - Added “clean-dev” build target for better cleanup of installed development files, which helps debian packaging.
 
 ---
 
