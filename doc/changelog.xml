@@ -1,34 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <changelog>
   <change version="0.2.6">
+    <datetime day-of-week="Mon" month="3" day="3" hour="21"
+      minute="50" second="0" timezone="CET" year="2014"/>
     <logentry>Adapted to automake v1.14 “subdir-objects” option.</logentry>
     <logentry>Fixed “AC_CONFIG_AUX_DIR” invocation.</logentry>
     <logentry>Added “clean-dev” build target for better cleanup of installed development files, which helps debian packaging.</logentry>
   </change>
 
   <change version="0.2.5">
-    <logentry>0.2.5 was finished at about Wed Jun 5 18:49:00 CEST 2013.</logentry>
+    <datetime day-of-week="Wed" month="6" day="5" hour="18"
+      minute="49" second="0" timezone="CEST" year="2013"/>
     <logentry>Renamed “install-locales” to “install-data” build target.</logentry>
     <logentry>Adapted to new reachar function names in the file system interface.</logentry>
   </change>
 
   <change version="0.2.4">
-    <logentry>0.2.4 was finished at about Thu Dec 27 21:35:34 CET 2012.</logentry>
+    <datetime day-of-week="Thu" month="12" day="27" hour="21"
+      minute="35" second="34" timezone="CET" year="2012"/>
     <logentry>Minor fix for libdrilbo build target.</logentry>
   </change>
 
   <change version="0.2.3">
-    <logentry>0.2.3 was finished at about Mon Sep 17 22:14:52 CEST 2012.</logentry>
+    <datetime day-of-week="Mon" month="9" day="17" hour="22"
+      minute="14" second="52" timezone="CEST" year="2012"/>
     <logentry>Adapted to new autoconf/automake build process.</logentry>
   </change>
 
   <change version="0.2.2">
-    <logentry>0.2.2 was finished at about Fri Mar 9 21:01:12 CET 2012.</logentry>
+    <datetime day-of-week="Fri" month="3" day="9" hour="21"
+      minute="1" second="12" timezone="CET" year="2012"/>
     <logentry>Fixed missing $(DESTDIR) variable – should already have been present since version 0.2.1.</logentry>
   </change>
 
   <change version="0.2.1">
-    <logentry>0.2.1 was finished at about Sun Nov 6 22:44:17 CET 2011.</logentry>
+    <datetime day-of-week="Sun" month="11" day="6" hour="22"
+      minute="44" second="17" timezone="CET" year="2011"/>
     <logentry>Fixed missing “override” statments for CFLAGS in Makefiles.</logentry>
     <logentry>Fixed $(DESTDIR) evaluation in config.[default|macports].mk.</logentry>
     <logentry>Adapted Makefiles and configuration to use standard GNU Makefile variables instead of INSTALL_PATH and FIZMO_BIN_DIR.</logentry>
@@ -36,7 +43,8 @@
   </change>
 
   <change version="0.2.0">
-    <logentry>0.2.0 was finished at about Sun Sep 18 08:41:18 CEST 2011</logentry>
+    <datetime day-of-week="Sun" month="9" day="18" hour="08"
+      minute="41" second="18" timezone="CEST" year="2011"/>
     <logentry>The “drilbo” library – “Drilbo Represents an Imaging Libary not only for Blorb Objects” – is supposed to handle fizmo's graphical related tasks. It makes fizmo's version 0.6 requirement for GTK obsolete, it directly uses libjpg and libpng to load images and provides its own Xlib implementation for X11 output (curentrly only supporting TrueColor).</logentry>
     <logentry>Implemented support for reading jpeg, png and MG1 graphics, the latter one using code from Mark Howell's pix2gif tool from the ztools package.</logentry>
     <logentry>Implemented output of jpeg (RGB, Grayscale and JCS_YCbCr) and ppm files in the P6 variant (usually only useful for debugging, P3 variant available, see code).</logentry>
