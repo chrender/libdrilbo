@@ -58,7 +58,7 @@ install-dev:: libdrilbo.a
 	echo >>"$(PKGFILE)"
 	echo 'Name: libdrilbo' >>"$(PKGFILE)"
 	echo 'Description: libdrilbo' >>"$(PKGFILE)"
-	echo 'Version: 0.2.6' >>"$(PKGFILE)"
+	echo 'Version: 0.2.7' >>"$(PKGFILE)"
 	echo 'Requires: $(LIBDRILBO_REQS)' >>"$(PKGFILE)"
 	echo 'Requires.private:' >>"$(PKGFILE)"
 	echo 'Cflags: -I$(fizmo_build_prefix)/include/fizmo $(LIBDRILBO_NONPKG_CFLAGS) ' >>"$(PKGFILE)"
