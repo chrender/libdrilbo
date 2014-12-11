@@ -16,7 +16,7 @@
 #    documentation and/or other materials provided with the distribution.
 # 3. The name of the author may not be used to endorse or promote products
 #    derived from this software without specific prior written permission.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
 # IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
 # OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -43,7 +43,12 @@ AC_ARG_ENABLE([tracing],
 
 m4_include(config-flags.m4)
 
-AC_INIT([libdrilbo], [0.2.6])
+AC_INIT(
+ [libdrilbo],
+ [0.2.6])
+ fizmo@spellbreaker.org,
+ libdrilbo)
+
 AC_CONFIG_AUX_DIR([.])
 
 libdrilbo_reqs="libfizmo >= 0.7.8"
