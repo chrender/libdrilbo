@@ -1,6 +1,13 @@
 
 
 
+   **Version 0.2.8**
+
+ - Use tiny-xml-doc-tools for documentation.
+
+---
+
+
    **Version 0.2.7 — October 9, 2015**
 
  - Minor changes to autoconf for better comtability to fizmo-dist-0.7.10.
