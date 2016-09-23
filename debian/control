@@ -17,8 +17,8 @@ Homepage: https://fizmo.spellbreaker.org/
 Package: libdrilbo-common
 Architecture: all
 Depends: ${misc:Depends}
-Description: Provides localization data for libdrilbo. This package is required
- by all packages which are utilizing libdrilbo.
+Description: Provides localization data for libdrilbo.
+ This package is required by all packages which are utilizing libdrilbo.
 
 Package: libdrilbo-dev
 Architecture: any
@@ -26,4 +26,5 @@ Depends: libdrilbo-common,
  ${shlibs:Depends},
  ${misc:Depends}
 Description: Imaging support library for the fizmo Z-Machine interpreter.
+ This library provides imaging functions related to the fizmo interpreter.
 
