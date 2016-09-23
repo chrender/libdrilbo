@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <changelog>
+  <change version="0.2.9">
+    <logentry>Improved build system for separate library and interface builds.</logentry>
+  </change>
+
   <change version="0.2.8">
     <datetime day-of-week="Wed" month="8" day="31" hour="7"
       minute="54" second="18" timezone="CEST" year="2015"/>

@@ -33,10 +33,14 @@ AUTOMAKE_OPTIONS = -Wno-override
 
 localedir = $(datarootdir)/fizmo/locales
 
-fizmo_build_prefix=$(DEV_BUILD_PREFIX)
+if FIZMO_DIST_BUILD
+  dev_prefix=$(FIZMO_DIST_BUILD_PREFIX)
+else
+  dev_prefix=$(prefix)
+endif
 
-PKG_DIR = $(fizmo_build_prefix)/lib/pkgconfig
-PKGFILE = $(PKG_DIR)/libdrilbo.pc
+pkg_dir = $(DESTDIR)$(dev_prefix)/lib/pkgconfig
+pkgfile = $(pkg_dir)/libdrilbo.pc
 
 SUBDIRS = src/drilbo .
 noinst_LIBRARIES = libdrilbo.a
@@ -46,24 +50,24 @@ libdrilbo.a::
 	mv src/drilbo/libdrilbo.a .
 
 install-dev:: libdrilbo.a
-	mkdir -p "$(fizmo_build_prefix)"/lib/fizmo
-	cp libdrilbo.a "$(fizmo_build_prefix)"/lib/fizmo
-	mkdir -p "$(fizmo_build_prefix)"/include/fizmo/drilbo
-	cp src/drilbo/*.h "$(fizmo_build_prefix)"/include/fizmo/drilbo
-	mkdir -p "$(PKG_DIR)"
-	echo 'prefix=$(fizmo_build_prefix)' >"$(PKGFILE)"
-	echo 'exec_prefix=$${prefix}' >>"$(PKGFILE)"
-	echo 'libdir=$${exec_prefix}/lib/fizmo' >>"$(PKGFILE)"
-	echo 'includedir=$${prefix}/include/fizmo' >>"$(PKGFILE)"
-	echo >>"$(PKGFILE)"
-	echo 'Name: libdrilbo' >>"$(PKGFILE)"
-	echo 'Description: libdrilbo' >>"$(PKGFILE)"
-	echo 'Version: 0.2.8' >>"$(PKGFILE)"
-	echo 'Requires: $(LIBDRILBO_REQS)' >>"$(PKGFILE)"
-	echo 'Requires.private:' >>"$(PKGFILE)"
-	echo 'Cflags: -I$(fizmo_build_prefix)/include/fizmo $(LIBDRILBO_NONPKG_CFLAGS) ' >>"$(PKGFILE)"
-	echo 'Libs: -L$(fizmo_build_prefix)/lib/fizmo -ldrilbo -lpthread $(LIBDRILBO_NONPKG_LIBS)'  >>"$(PKGFILE)"
-	echo >>"$(PKGFILE)"
+	mkdir -p "$(DESTDIR)$(dev_prefix)"/lib/fizmo
+	cp libdrilbo.a "$(DESTDIR)$(dev_prefix)"/lib/fizmo
+	mkdir -p "$(DESTDIR)$(dev_prefix)"/include/fizmo/drilbo
+	cp src/drilbo/*.h "$(DESTDIR)$(dev_prefix)"/include/fizmo/drilbo
+	mkdir -p "$(pkg_dir)"
+	echo 'prefix=$(dev_prefix)' >"$(pkgfile)"
+	echo 'exec_prefix=$${prefix}' >>"$(pkgfile)"
+	echo 'libdir=$${exec_prefix}/lib/fizmo' >>"$(pkgfile)"
+	echo 'includedir=$${prefix}/include/fizmo' >>"$(pkgfile)"
+	echo >>"$(pkgfile)"
+	echo 'Name: libdrilbo' >>"$(pkgfile)"
+	echo 'Description: libdrilbo' >>"$(pkgfile)"
+	echo 'Version: 0.2.9' >>"$(pkgfile)"
+	echo 'Requires: $(LIBDRILBO_REQS)' >>"$(pkgfile)"
+	echo 'Requires.private:' >>"$(pkgfile)"
+	echo 'Cflags: -I$(dev_prefix)/include/fizmo $(LIBDRILBO_NONPKG_CFLAGS) ' >>"$(pkgfile)"
+	echo 'Libs: -L$(dev_prefix)/lib/fizmo -ldrilbo -lpthread $(LIBDRILBO_NONPKG_LIBS)'  >>"$(pkgfile)"
+	echo >>"$(pkgfile)"
 
 install-data-local::
 	mkdir -p "$(DESTDIR)$(localedir)"
@@ -77,12 +81,9 @@ install-data-local::
 # a - sign. rmdir may fail in clean-dev in case other libs have installed
 # development files, or in case clean-dev has been run before.
 clean-dev::
-	-rm "$(fizmo_build_prefix)/lib/fizmo/libdrilbo.a"
-	-rmdir "$(fizmo_build_prefix)/lib/fizmo"
-	rm -rf "$(fizmo_build_prefix)/include/fizmo/drilbo"
-	-rmdir "$(fizmo_build_prefix)/include/fizmo"
-	-rmdir "$(fizmo_build_prefix)/include"
-	-rm "$(PKGFILE)"
-	-rmdir "$(PKG_DIR)"
-	-rmdir "$(fizmo_build_prefix)/lib"
+	-rm "$(DESTDIR)$(dev_prefix)/lib/fizmo/libdrilbo.a"
+	-rmdir "$(DESTDIR)$(dev_prefix)/lib/fizmo"
+	rm -rf "$(DESTDIR)$(dev_prefix)/include/fizmo/drilbo"
+	-rmdir "$(DESTDIR)$(dev_prefix)/include/fizmo"
+	-rm "$(pkgfile)"
 

@@ -45,17 +45,17 @@ m4_include(config-flags.m4)
 
 AC_INIT(
  [libdrilbo],
- [0.2.8],
+ [0.2.9],
  fizmo@spellbreaker.org,
  libdrilbo)
 
 AC_CONFIG_AUX_DIR([.])
 
-libdrilbo_reqs="libfizmo >= 0.7.12"
+libdrilbo_reqs="libfizmo >= 0.7.13"
 libdrilbo_nonpkg_cflags=""
 libdrilbo_nonpkg_libs=""
 
-PKG_CHECK_MODULES([libfizmo], [libfizmo >= 0.7.12])
+PKG_CHECK_MODULES([libfizmo], [libfizmo >= 0.7.13])
 
 m4_include(config-libs.m4)
 
@@ -64,10 +64,7 @@ AC_PROG_CC
 AC_PROG_RANLIB
 AM_PROG_AR
 
-#AS_IF([test "x$with_dev_build_prefix" == "x"],
-# [with_dev_build_prefix="$DESTDIR$prefix"])
-#AC_SUBST([DEV_BUILD_PREFIX], $with_dev_build_prefix)
-AC_SUBST([DEV_BUILD_PREFIX], "$DESTDIR$prefix")
+AM_CONDITIONAL([FIZMO_DIST_BUILD], [test "x" = ""])
 
 AC_SUBST([LIBDRILBO_REQS], $libdrilbo_reqs)
 AC_SUBST([LIBDRILBO_NONPKG_CFLAGS], $libdrilbo_nonpkg_cflags)
