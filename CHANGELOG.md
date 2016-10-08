@@ -1,7 +1,7 @@
 
 
 
-   **Version 0.2.9**
+   **Version 0.2.9 — October 8, 2016**
 
  - Improved build system for separate library and interface builds.
 
