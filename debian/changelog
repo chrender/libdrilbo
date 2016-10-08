@@ -1,6 +1,6 @@
-libdrilbo (0.2.9-1) unstable; urgency=low
+libdrilbo (0.2.9-1) experimental; urgency=low
 
   * Initial release.
 
- -- Christoph Ender <christoph.ender@spellbreaker.org>  Sat, 24 Sep 2016 00:27:27 +0200
+ -- Christoph Ender <christoph.ender@spellbreaker.org>  Sun, 9 Oct 2016 00:38:52 +0200
 
