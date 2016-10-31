@@ -1,6 +1,6 @@
 libdrilbo (0.2.9-1) experimental; urgency=low
 
-  * Initial release.
+  * Initial release (Closes: #842689).
 
- -- Christoph Ender <christoph.ender@spellbreaker.org>  Sun, 9 Oct 2016 00:38:52 +0200
+ -- Christoph Ender <christoph.ender@spellbreaker.org>  Mon, 31 Oct 2016 17:25:00 +0100
 
