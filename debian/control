@@ -30,4 +30,5 @@ Depends: libdrilbo-common,
  ${misc:Depends}
 Description: Imaging support library for the fizmo Z-Machine interpreter
  This library provides mg1, jpeg, png and X11-support for fizmo. It is usually
- used by fizmo-related frontends or interfaces.
+ used by fizmo-related frontends or interfaces to support Z-Machine 
+ related image processing.
