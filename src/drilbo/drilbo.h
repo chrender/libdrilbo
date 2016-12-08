@@ -33,7 +33,7 @@
 #ifndef drilbo_h_INCLUDED 
 #define drilbo_h_INCLUDED
 
-#define DRILBO_VERSION "0.2.9"
+#define DRILBO_VERSION "0.2.10"
 
 #ifdef UNUSED 
 #elif defined(__GNUC__) 
