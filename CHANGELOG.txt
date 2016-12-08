@@ -1,4 +1,8 @@
 
+   Version 0.2.10
+ - Fixed drilbo to correctly ignore drilbo-x11.c when configured with
+   "--disable-x11".
+
    Version 0.2.9 -- October 8, 2016
  - Improved build system for separate library and interface builds.
 
