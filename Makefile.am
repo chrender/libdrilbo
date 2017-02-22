@@ -3,7 +3,7 @@
 #
 # This file is part of fizmo.
 #
-# Copyright (c) 2009-2016 Christoph Ender.
+# Copyright (c) 2009-2017 Christoph Ender.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -62,7 +62,7 @@ install-dev:: libdrilbo.a
 	echo >>"$(pkgfile)"
 	echo 'Name: libdrilbo' >>"$(pkgfile)"
 	echo 'Description: libdrilbo' >>"$(pkgfile)"
-	echo 'Version: 0.2.9' >>"$(pkgfile)"
+	echo 'Version: 0.2.10' >>"$(pkgfile)"
 	echo 'Requires: $(LIBDRILBO_REQS)' >>"$(pkgfile)"
 	echo 'Requires.private:' >>"$(pkgfile)"
 	echo 'Cflags: -I$(dev_prefix)/include/fizmo $(LIBDRILBO_NONPKG_CFLAGS) ' >>"$(pkgfile)"
