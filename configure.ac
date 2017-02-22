@@ -3,7 +3,7 @@
 #
 # This file is part of fizmo.
 #
-# Copyright (c) 2009-2016 Christoph Ender.
+# Copyright (c) 2009-2017 Christoph Ender.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -51,11 +51,11 @@ AC_INIT(
 
 AC_CONFIG_AUX_DIR([.])
 
-libdrilbo_reqs="libfizmo >= 0.7.13"
+libdrilbo_reqs="libfizmo >= 0.7.14"
 libdrilbo_nonpkg_cflags=""
 libdrilbo_nonpkg_libs=""
 
-PKG_CHECK_MODULES([libfizmo], [libfizmo >= 0.7.13])
+PKG_CHECK_MODULES([libfizmo], [libfizmo >= 0.7.14])
 
 m4_include(config-libs.m4)
 
