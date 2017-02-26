@@ -31,7 +31,7 @@
 
 AUTOMAKE_OPTIONS = subdir-objects
 
-AM_CFLAGS = $(libfizmo_CFLAGS) $(x11_CFLAGS) $(png_CFLAGS) $(jpeg_CFLAGS)
+AM_CFLAGS = $(libfizmo_CFLAGS) $(x11_CFLAGS) $(png_CFLAGS) $(jpeg_CFLAGS) -fPIC
 AM_CPPFLAGS =
 LDADD = $(libfizmo_LIBS) $(x11_LIBS) $(png_LIBS) $(jpeg_LIBS)
 
