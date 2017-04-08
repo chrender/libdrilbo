@@ -1,7 +1,7 @@
 
 
 
-   **Version 0.2.10**
+   **Version 0.2.10 — April 8, 2017**
 
  - Fixed drilbo to correctly ignore drilbo-x11.c when configured with “--disable-x11”.
  - Adapted to replacement of en_US locale with en_GB from libfizmo.
