@@ -1,6 +1,13 @@
 
 
 
+   **Version 0.2.11**
+
+ - Fix superfluous libraries and includes during install when using $DESTDIR, addressing github issue #21.
+
+---
+
+
    **Version 0.2.10 — April 8, 2017**
 
  - Fixed drilbo to correctly ignore drilbo-x11.c when configured with “--disable-x11”.
