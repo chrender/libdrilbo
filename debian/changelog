@@ -1,3 +1,11 @@
+libdrilbo (0.2.10-2) unstable; urgency=low
+
+  * New standards version 4.0.0.
+  * Switch to unstable.
+
+ -- Christoph Ender <christoph.ender@spellbreaker.org>  Sun, 16 Jul 2017 21:00:00 +0200
+
+
 libdrilbo (0.2.10-1) experimental; urgency=low
 
   * New upstream version.
