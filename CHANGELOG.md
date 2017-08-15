@@ -1,7 +1,7 @@
 
 
 
-   **Version 0.2.11**
+   **Version 0.2.11 — August 14, 2017**
 
  - Fix superfluous libraries and includes during install when using $DESTDIR, addressing github issue #21.
 
