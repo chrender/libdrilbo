@@ -45,17 +45,17 @@ m4_include(config-flags.m4)
 
 AC_INIT(
  [libdrilbo],
- [0.2.10],
+ [0.2.11],
  fizmo@spellbreaker.org,
  libdrilbo)
 
 AC_CONFIG_AUX_DIR([.])
 
-libdrilbo_reqs="libfizmo >= 0.7.14"
+libdrilbo_reqs="libfizmo >= 0.7.15"
 libdrilbo_nonpkg_cflags=""
 libdrilbo_nonpkg_libs=""
 
-PKG_CHECK_MODULES([libfizmo], [libfizmo >= 0.7.14])
+PKG_CHECK_MODULES([libfizmo], [libfizmo >= 0.7.15])
 
 m4_include(config-libs.m4)
 
