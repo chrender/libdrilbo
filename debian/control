@@ -27,7 +27,10 @@ Package: libdrilbo-dev
 Architecture: any
 Depends: libdrilbo-common,
  ${shlibs:Depends},
- ${misc:Depends}
+ ${misc:Depends},
+ libx11-dev,
+ libjpeg-dev,
+ libpng-dev
 Description: Imaging support library for the fizmo Z-Machine interpreter
  This library provides mg1, jpeg, png and X11-support for fizmo. It is usually
  used by fizmo-related frontends or interfaces to support Z-Machine
