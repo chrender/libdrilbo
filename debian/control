@@ -7,10 +7,10 @@ Build-Depends: debhelper (>= 9.0.0),
  automake,
  autoconf,
  pkg-config,
+ libfizmo-dev,
  libx11-dev,
  libjpeg-dev,
- libpng-dev,
- libfizmo-dev
+ libpng-dev
 Standards-Version: 4.0.0
 Homepage: https://fizmo.spellbreaker.org/
 
@@ -28,6 +28,7 @@ Architecture: any
 Depends: libdrilbo-common,
  ${shlibs:Depends},
  ${misc:Depends},
+ libfizmo-dev,
  libx11-dev,
  libjpeg-dev,
  libpng-dev
