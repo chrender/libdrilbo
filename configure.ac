@@ -67,8 +67,12 @@ AM_PROG_AR
 AM_CONDITIONAL([FIZMO_DIST_BUILD], [test "x" = ""])
 
 AC_SUBST([LIBDRILBO_REQS], $libdrilbo_reqs)
-AC_SUBST([LIBDRILBO_NONPKG_CFLAGS], $libdrilbo_nonpkg_cflags)
-AC_SUBST([LIBDRILBO_NONPKG_LIBS], $libdrilbo_nonpkg_libs)
+AC_SUBST([LIBX11_NONPKG_CFLAGS], $libx11_nonpkg_cflags)
+AC_SUBST([LIBX11_NONPKG_LIBS], $libx11_nonpkg_libs)
+AC_SUBST([LIBJPEG_NONPKG_CFLAGS], $libjpeg_nonpkg_cflags)
+AC_SUBST([LIBJPEG_NONPKG_LIBS], $libjpeg_nonpkg_libs)
+AC_SUBST([LIBPNG_NONPKG_CFLAGS], $libpng_nonpkg_cflags)
+AC_SUBST([LIBPNG_NONPKG_LIBS], $libpng_nonpkg_libs)
 
 AM_CONDITIONAL([ENABLE_TRACING],
                 [test "$enable_tracing" = "yes"])
