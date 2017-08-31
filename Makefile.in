@@ -280,11 +280,15 @@ INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LDFLAGS = @LDFLAGS@
-LIBDRILBO_NONPKG_CFLAGS = @LIBDRILBO_NONPKG_CFLAGS@
-LIBDRILBO_NONPKG_LIBS = @LIBDRILBO_NONPKG_LIBS@
 LIBDRILBO_REQS = @LIBDRILBO_REQS@
+LIBJPEG_NONPKG_CFLAGS = @LIBJPEG_NONPKG_CFLAGS@
+LIBJPEG_NONPKG_LIBS = @LIBJPEG_NONPKG_LIBS@
 LIBOBJS = @LIBOBJS@
+LIBPNG_NONPKG_CFLAGS = @LIBPNG_NONPKG_CFLAGS@
+LIBPNG_NONPKG_LIBS = @LIBPNG_NONPKG_LIBS@
 LIBS = @LIBS@
+LIBX11_NONPKG_CFLAGS = @LIBX11_NONPKG_CFLAGS@
+LIBX11_NONPKG_LIBS = @LIBX11_NONPKG_LIBS@
 LTLIBOBJS = @LTLIBOBJS@
 MAKEINFO = @MAKEINFO@
 MKDIR_P = @MKDIR_P@
@@ -329,20 +333,22 @@ htmldir = @htmldir@
 includedir = @includedir@
 infodir = @infodir@
 install_sh = @install_sh@
-jpeg_CFLAGS = @jpeg_CFLAGS@
-jpeg_LIBS = @jpeg_LIBS@
 libdir = @libdir@
 libexecdir = @libexecdir@
 libfizmo_CFLAGS = @libfizmo_CFLAGS@
 libfizmo_LIBS = @libfizmo_LIBS@
+libjpeg_CFLAGS = @libjpeg_CFLAGS@
+libjpeg_LIBS = @libjpeg_LIBS@
+libpng_CFLAGS = @libpng_CFLAGS@
+libpng_LIBS = @libpng_LIBS@
+libx11_CFLAGS = @libx11_CFLAGS@
+libx11_LIBS = @libx11_LIBS@
 localedir = $(datarootdir)/fizmo/locales
 localstatedir = @localstatedir@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
 pdfdir = @pdfdir@
-png_CFLAGS = @png_CFLAGS@
-png_LIBS = @png_LIBS@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
 psdir = @psdir@
@@ -355,8 +361,6 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-x11_CFLAGS = @x11_CFLAGS@
-x11_LIBS = @x11_LIBS@
 AUTOMAKE_OPTIONS = -Wno-override
 @FIZMO_DIST_BUILD_FALSE@dev_prefix = $(DESTDIR)/$(prefix)
 @FIZMO_DIST_BUILD_TRUE@dev_prefix = $(FIZMO_DIST_BUILD_PREFIX)
@@ -872,8 +876,9 @@ install-dev:: libdrilbo.a
 	echo 'Version: 0.2.11' >>"$(pkgfile)"
 	echo 'Requires: $(LIBDRILBO_REQS)' >>"$(pkgfile)"
 	echo 'Requires.private:' >>"$(pkgfile)"
-	echo 'Cflags: -I$(pkg_prefix)/include/fizmo $(LIBDRILBO_NONPKG_CFLAGS) ' >>"$(pkgfile)"
-	echo 'Libs: -L$(pkg_prefix)/lib/fizmo -ldrilbo -lpthread $(LIBDRILBO_NONPKG_LIBS)'  >>"$(pkgfile)"
+	echo 'Cflags: -I$(pkg_prefix)/include/fizmo' >>"$(pkgfile)"
+	echo 'Libs: -L$(pkg_prefix)/lib/fizmo -ldrilbo -lpthread $(LIBX11_NONPKG_LIBS) $(LIBJPEG_NONPKG_LIBS) $(LIBPNG_NONPKG_LIBS)' >>"$(pkgfile)"
+	echo 'Libs.private:' >>"$(pkgfile)"
 	echo >>"$(pkgfile)"
 
 install-data-local::
