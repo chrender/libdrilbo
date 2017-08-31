@@ -67,8 +67,9 @@ install-dev:: libdrilbo.a
 	echo 'Version: 0.2.11' >>"$(pkgfile)"
 	echo 'Requires: $(LIBDRILBO_REQS)' >>"$(pkgfile)"
 	echo 'Requires.private:' >>"$(pkgfile)"
-	echo 'Cflags: -I$(pkg_prefix)/include/fizmo $(LIBDRILBO_NONPKG_CFLAGS) ' >>"$(pkgfile)"
-	echo 'Libs: -L$(pkg_prefix)/lib/fizmo -ldrilbo -lpthread $(LIBDRILBO_NONPKG_LIBS)'  >>"$(pkgfile)"
+	echo 'Cflags: -I$(pkg_prefix)/include/fizmo' >>"$(pkgfile)"
+	echo 'Libs: -L$(pkg_prefix)/lib/fizmo -ldrilbo -lpthread $(LIBX11_NONPKG_LIBS) $(LIBJPEG_NONPKG_LIBS) $(LIBPNG_NONPKG_LIBS)' >>"$(pkgfile)"
+	echo 'Libs.private:' >>"$(pkgfile)"
 	echo >>"$(pkgfile)"
 
 install-data-local::

@@ -1,22 +1,24 @@
 
 AS_IF([test "x$enable_x11" != "xno"], [
-  PKG_CHECK_MODULES([x11], [x11])
-  AS_IF([test "x$libdrilbo_reqs" != "x"], [
-          libdrilbo_reqs+=", "
-  ])
-  libdrilbo_reqs+="x11"
+  PKG_CHECK_MODULES(
+    [libx11],
+    [x11],
+    [AS_IF([test "x$libdrilbo_reqs" != "x"], [
+       libdrilbo_reqs+=", "
+     ])
+     libdrilbo_reqs+="x11"])
 ])
 
 AS_IF([test "x$enable_jpeg" != "xno"], [
   PKG_CHECK_MODULES(
-    [jpeg],
-    [jpeg],
+    [libjpeg],
+    [libjpeg],
     [AS_IF([test "x$libdrilbo_reqs" != "x"], [
-      libdrilbo_reqs+=", "
+       libdrilbo_reqs+=", "
      ])
-     libdrilbo_reqs+="jpeg" ],
+     libdrilbo_reqs+="libjpeg"],
     [for dir in $with_jpeg_includedir /usr/include /usr/local/include /opt/local/include ; do
-       AC_MSG_CHECKING(for $dir/jpeglib.h)
+       AC_MSG_CHECKING(for jpeglib.h in $dir)
        if [ test -e $dir/jpeglib.h ]; then
          AC_MSG_RESULT(yes)
          jpeglib_h_dir=$dir
@@ -27,11 +29,13 @@ AS_IF([test "x$enable_jpeg" != "xno"], [
      done
      if [ test "x$jpeglib_h_dir" == "x"] ; then
        echo "Could not find libjpeg.h."
-       echo "Try setting the location using --with-jpeg-libdir."
+       echo "Try setting the location using --with-jpeg-includedir."
        exit
      fi
-     libdrilbo_nonpkg_cflags+="-I$jpeglib_h_dir"
+     libjpeg_nonpkg_cflags+="-I$jpeglib_h_dir"
+     libjpeg_CFLAGS="-I$jpeglib_h_dir"
 
+     CFLAGS_SAVED=$CFLAGS
      LIBS_SAVED=$LIBS
      LDFLAGS_SAVED=$LDFLAGS
      LIBS="-ljpeg"
@@ -55,15 +59,19 @@ AS_IF([test "x$enable_jpeg" != "xno"], [
      fi
      LIBS=$LIBS_SAVED
      LDFLAGS=$LDFLAGS_SAVED
-     libdrilbo_nonpkg_libs="-L$jpeglib_l_dir -ljpeg"
+     CFLAGS=$CFLAGS_SAVED
+     libjpeg_nonpkg_libs="-L$jpeglib_l_dir -ljpeg"
+     libjpeg_LIBS="-L$jpeglib_l_dir -ljpeg"
     ])
 ])
 
 AS_IF([test "x$enable_png" != "xno"], [
-  PKG_CHECK_MODULES([png], [libpng >= 1.2])
-  AS_IF([test "x$libdrilbo_reqs" != "x"], [
-          libdrilbo_reqs+=", "
-  ])
-  libdrilbo_reqs+="libpng >= 1.2"
+  PKG_CHECK_MODULES(
+    [libpng],
+    [libpng >= 1.2],
+    [AS_IF([test "x$libdrilbo_reqs" != "x"], [
+       libdrilbo_reqs+=", "
+     ])
+     libdrilbo_reqs+="libpng >= 1.2"])
 ])
 

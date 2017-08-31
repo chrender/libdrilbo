@@ -31,9 +31,9 @@
 
 AUTOMAKE_OPTIONS = subdir-objects
 
-AM_CFLAGS = $(libfizmo_CFLAGS) $(x11_CFLAGS) $(png_CFLAGS) $(jpeg_CFLAGS) -fPIC
+AM_CFLAGS = $(libfizmo_CFLAGS) $(libx11_CFLAGS) $(libpng_CFLAGS) $(libjpeg_CFLAGS) -fPIC
 AM_CPPFLAGS =
-LDADD = $(libfizmo_LIBS) $(x11_LIBS) $(png_LIBS) $(jpeg_LIBS)
+LDADD = $(libfizmo_LIBS) $(libx11_LIBS) $(libpng_LIBS) $(libjpeg_LIBS)
 
 localedir = $(datarootdir)/fizmo/locales
 
