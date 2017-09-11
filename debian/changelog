@@ -4,7 +4,7 @@ libdrilbo (0.2.11-1) unstable; urgency=low
   * Updated BSD-3 license to include contributors. License is now to 100%
     identical to the 3-Clause BSD License.
 
- -- Christoph Ender <christoph.ender@spellbreaker.org>  Sun, 27 Aug 2017 20:50:00 +0200
+ -- Christoph Ender <christoph.ender@spellbreaker.org>  Mon, 11 Sep 2017 17:50:00 +0200
 
 
 libdrilbo (0.2.10-2) unstable; urgency=low
