@@ -7,10 +7,10 @@ Build-Depends: debhelper (>= 9.0.0),
  automake,
  autoconf,
  pkg-config,
- libfizmo-dev,
  libx11-dev,
  libjpeg-dev,
- libpng-dev
+ libpng-dev,
+ libfizmo-dev (>= 0.7.15)
 Standards-Version: 4.1.0
 Homepage: https://fizmo.spellbreaker.org/
 Vcs-Browser: https://github.com/chrender/libdrilbo
@@ -27,10 +27,10 @@ Description: Provides localization data for libdrilbo
 
 Package: libdrilbo-dev
 Architecture: any
-Depends: libdrilbo-common,
+Depends: libfizmo-dev (>= 0.7.15),
+ libdrilbo-common (>= 0.2.10),
  ${shlibs:Depends},
  ${misc:Depends},
- libfizmo-dev,
  libx11-dev,
  libjpeg-dev,
  libpng-dev

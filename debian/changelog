@@ -1,3 +1,14 @@
+libdrilbo (0.2.11-3) unstable; urgency=low
+
+  * Made libdrilbo-dev require at least version 0.2.10 of libdrilbo-common
+    due to requirement of the en_GB instead of the en_US hyphenation patterns.
+  * Made libdrilbo require at least version 0.7.15 of libfizmo-dev due
+    to build changes.
+  * Removed "Vcs-Git" field from control file.
+
+ -- Christoph Ender <christoph.ender@spellbreaker.org>  Thu, 14 Sep 2017 21:50:00 +0200
+
+
 libdrilbo (0.2.11-2) unstable; urgency=low
 
   * Switched priority from "extra" to "optional".
