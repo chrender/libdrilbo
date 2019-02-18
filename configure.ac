@@ -47,7 +47,7 @@ m4_include(config-flags.m4)
 
 AC_INIT(
  [libdrilbo],
- [0.2.11],
+ [0.2.12],
  fizmo@spellbreaker.org,
  libdrilbo)
 

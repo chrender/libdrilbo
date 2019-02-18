@@ -42,11 +42,12 @@ AS_IF([test "x$enable_jpeg" != "xno"], [
      for dir in $with_jpeg_libdir /usr/lib /usr/local/lib /opt/local/lib ; do
        AC_MSG_CHECKING(for libjpeg in $dir)
        LDFLAGS="-L$dir"
-       AC_TRY_LINK(
-         [#include <stdio.h>
-          #include "$jpeglib_h_dir/jpeglib.h"],
-         [struct jpeg_decompress_struct cinfo;
-          jpeg_create_decompress(&cinfo);],
+       AC_LINK_IFELSE(
+        [AC_LANG_PROGRAM(
+         [[#include <stdio.h>
+           #include "$jpeglib_h_dir/jpeglib.h"]],
+         [[struct jpeg_decompress_struct cinfo;
+           jpeg_create_decompress(&cinfo);]])],
          [AC_MSG_RESULT(yes)
           jpeglib_l_dir=$dir
           break],

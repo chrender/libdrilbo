@@ -1,6 +1,15 @@
 
 
 
+   **Version 0.2.12 — Febuary 17, 2019**
+
+ - Replaced obsolete AC\_TRY\_LINK with AC\_LINK\_IFELSE.
+ - Fixed underscores in markdown files.
+ - Updated tiny-xml-doc-tools.
+
+---
+
+
    **Version 0.2.11 — September 3, 2017**
 
  - Fix superfluous libraries and includes during install when using $DESTDIR, addressing github issue #21.
@@ -12,7 +21,7 @@
    **Version 0.2.10 — April 8, 2017**
 
  - Fixed drilbo to correctly ignore drilbo-x11.c when configured with “--disable-x11”.
- - Adapted to replacement of en_US locale with en_GB from libfizmo.
+ - Adapted to replacement of en\_US locale with en\_GB from libfizmo.
 
 ---
 
@@ -41,7 +50,7 @@
    **Version 0.2.6 — March 19, 2014**
 
  - Adapted to automake v1.14 “subdir-objects” option.
- - Fixed “AC_CONFIG_AUX_DIR” invocation.
+ - Fixed “AC\_CONFIG\_AUX\_DIR” invocation.
  - Added “clean-dev” build target for better cleanup of installed development files, which helps debian packaging.
 
 ---
@@ -80,7 +89,7 @@
 
  - Fixed missing “override” statments for CFLAGS in Makefiles.
  - Fixed $(DESTDIR) evaluation in config.[default|macports].mk.
- - Adapted Makefiles and configuration to use standard GNU Makefile variables instead of INSTALL_PATH and FIZMO_BIN_DIR.
+ - Adapted Makefiles and configuration to use standard GNU Makefile variables instead of INSTALL\_PATH and FIZMO\_BIN\_DIR.
  - Removed “drilbo-x11.c” requirement for “Xatom.h”.
 
 ---
@@ -90,9 +99,9 @@
 
  - The “drilbo” library – “Drilbo Represents an Imaging Libary not only for Blorb Objects” – is supposed to handle fizmo's graphical related tasks. It makes fizmo's version 0.6 requirement for GTK obsolete, it directly uses libjpg and libpng to load images and provides its own Xlib implementation for X11 output (curentrly only supporting TrueColor).
  - Implemented support for reading jpeg, png and MG1 graphics, the latter one using code from Mark Howell's pix2gif tool from the ztools package.
- - Implemented output of jpeg (RGB, Grayscale and JCS_YCbCr) and ppm files in the P6 variant (usually only useful for debugging, P3 variant available, see code).
+ - Implemented output of jpeg (RGB, Grayscale and JCS\_YCbCr) and ppm files in the P6 variant (usually only useful for debugging, P3 variant available, see code).
  - Implemented output to X11 displays though xlib, truecolor only.
  - Added support for bilinear scaling.
- - Implemented a “z_image” type which holds all the data and metadata for images. A z_image may contain either an RGB or a grayscale file with a depth of 8 bit per pixel.
+ - Implemented a “z\_image” type which holds all the data and metadata for images. A z\_image may contain either an RGB or a grayscale file with a depth of 8 bit per pixel.
 
 

@@ -66,7 +66,7 @@ install-dev:: libdrilbo.a
 	echo >>"$(pkgfile)"
 	echo 'Name: libdrilbo' >>"$(pkgfile)"
 	echo 'Description: libdrilbo' >>"$(pkgfile)"
-	echo 'Version: 0.2.11' >>"$(pkgfile)"
+	echo 'Version: 0.2.12' >>"$(pkgfile)"
 	echo 'Requires: $(LIBDRILBO_REQS)' >>"$(pkgfile)"
 	echo 'Requires.private:' >>"$(pkgfile)"
 	echo 'Cflags: -I$(pkg_prefix)/include/fizmo' >>"$(pkgfile)"
