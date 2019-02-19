@@ -37,12 +37,6 @@ AC_ARG_ENABLE([tracing],
  [],
  [enable_tracing=no])
 
-#AC_ARG_WITH([dev-build-prefix],
-# [AS_HELP_STRING([--with-dev-build-prefix],
-#   [Specify directory install development files to])],
-# []
-# [with_dev_build_prefix=])
-
 m4_include(config-flags.m4)
 
 AC_INIT(
