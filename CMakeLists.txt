@@ -91,8 +91,11 @@ ExternalProject_Add(locale_data_preparation
 find_package(PkgConfig REQUIRED)
 
 
+set(required_pkg_libs)
+
 # We need libfizmo >= 0.9.
 pkg_check_modules(LIBFIZMO REQUIRED libfizmo>=0.9.0)
+list(APPEND required_pkg_libs "libfizmo >= 0.9.0")
 
 
 set (MyCSources
@@ -104,9 +107,6 @@ set (MyCSources
   src/locales/libdrilbo_locales.c
   src/locales/locale_data.c
   src/locales/locale_data.h)
-
-
-set(pc_req_public)
 
 
 # Enabling tracing will cause fizmo to write a really, really large amount
@@ -143,7 +143,7 @@ if (ENABLE_JPEG)
   pkg_check_modules(LIBJPEG REQUIRED libjpeg)
   add_definitions(-DENABLE_JPEG)
   list(APPEND MyCSources src/drilbo/drilbo-jpeg.c)
-  list(APPEND pc_req_public "libjpeg")
+  list(APPEND required_pkg_libs "libjpeg")
 endif()
 
 
@@ -153,7 +153,7 @@ if (ENABLE_PNG)
   pkg_check_modules(LIBPNG REQUIRED libpng)
   add_definitions(-DENABLE_PNG)
   list(APPEND MyCSources src/drilbo/drilbo-png.c)
-  list(APPEND pc_req_public "libpng")
+  list(APPEND required_pkg_libs "libpng")
 endif()
 
 
@@ -163,7 +163,7 @@ if (ENABLE_X11)
   find_package(X11 REQUIRED)
   add_definitions(-DENABLE_X11)
   list(APPEND MyCSources src/drilbo/drilbo-x11.c)
-  list(APPEND pc_req_public "x11")
+  list(APPEND required_pkg_libs "x11")
 endif()
 
 
@@ -174,8 +174,8 @@ add_library(libdrilbo ${MyCSources})
 target_include_directories(${PROJECT_NAME} PUBLIC ${LIBFIZMO_INCLUDE_DIRS}
   ${LIBJPEG_INCLUDE_DIRS} ${LIBPNG_INCLUDE_DIRS} ${X11_INCLUDE_DIR})
 
-target_link_directories(${PROJECT_NAME} PUBLIC ${LIBFIZMO_LIBDIR}
-  ${LIBJPEG_LIBDIR} ${LIBPNG_LIBDIR})
+#target_link_directories(${PROJECT_NAME} PUBLIC ${LIBFIZMO_LIBDIR}
+#  ${LIBJPEG_LIBDIR} ${LIBPNG_LIBDIR})
 
 
 #install(TARGETS libdrilbo)
@@ -193,6 +193,7 @@ install(TARGETS libdrilbo)
 
 set(pc_libs_private)
 set(pc_req_private)
+string(REPLACE ";" " " pc_req_public "${required_pkg_libs}")
 configure_file(src/libdrilbo.pc.in libdrilbo.pc @ONLY)
 
 
