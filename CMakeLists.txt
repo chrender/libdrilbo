@@ -59,6 +59,10 @@ include(ExternalProject)
 include(FindPkgConfig)
 
 
+# Create position-independent code.
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+
 project(libdrilbo
   LANGUAGES C
   HOMEPAGE_URL https://fizmo.spellbreaker.org
