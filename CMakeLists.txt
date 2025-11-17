@@ -67,7 +67,7 @@ project(libdrilbo
   LANGUAGES C
   HOMEPAGE_URL https://fizmo.spellbreaker.org
   DESCRIPTION "Drilbo Represents an Imaging Libary not only for Blorb Objects"
-  VERSION 0.9.0)
+  VERSION 0.3.0)
 
 
 # Don't prepend libname with "lib". This will make it possible to use the
@@ -97,12 +97,12 @@ find_package(PkgConfig REQUIRED)
 
 set(required_pkg_libs)
 
-# We need libfizmo >= 0.9.
-pkg_check_modules(LIBFIZMO REQUIRED libfizmo>=0.9.0)
-list(APPEND required_pkg_libs "libfizmo >= 0.9.0")
+# We need libfizmo >= 0.8.
+pkg_check_modules(LIBFIZMO REQUIRED libfizmo>=0.8.0)
+list(APPEND required_pkg_libs "libfizmo >= 0.8.0")
 
 
-set (MyCSources
+set (c_sources
   src/drilbo/drilbo-mg1.c
   src/drilbo/drilbo-png.c
   src/drilbo/drilbo-ppm.c
@@ -146,7 +146,7 @@ option(ENABLE_JPEG "Enable JPEG" ON)
 if (ENABLE_JPEG)
   pkg_check_modules(LIBJPEG REQUIRED libjpeg)
   add_definitions(-DENABLE_JPEG)
-  list(APPEND MyCSources src/drilbo/drilbo-jpeg.c)
+  list(APPEND c_sources src/drilbo/drilbo-jpeg.c)
   list(APPEND required_pkg_libs "libjpeg")
 endif()
 
@@ -156,7 +156,7 @@ option(ENABLE_PNG "Enable PNG" ON)
 if (ENABLE_PNG)
   pkg_check_modules(LIBPNG REQUIRED libpng)
   add_definitions(-DENABLE_PNG)
-  list(APPEND MyCSources src/drilbo/drilbo-png.c)
+  list(APPEND c_sources src/drilbo/drilbo-png.c)
   list(APPEND required_pkg_libs "libpng")
 endif()
 
@@ -166,14 +166,14 @@ option(ENABLE_X11 "Enable X11" ON)
 if (ENABLE_X11)
   find_package(X11 REQUIRED)
   add_definitions(-DENABLE_X11)
-  list(APPEND MyCSources src/drilbo/drilbo-x11.c)
+  list(APPEND c_sources src/drilbo/drilbo-x11.c)
   list(APPEND required_pkg_libs "x11")
 endif()
 
 
 # Tell CMake we'd like to create a library named "libdrilbo" with the
 # given ".c" files.
-add_library(libdrilbo ${MyCSources})
+add_library(libdrilbo ${c_sources})
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${LIBFIZMO_INCLUDE_DIRS}
   ${LIBJPEG_INCLUDE_DIRS} ${LIBPNG_INCLUDE_DIRS} ${X11_INCLUDE_DIR})
